@@ -1,0 +1,1 @@
+<img src="./image/catalog/AlphaPoineer/general/user.png"/>
