@@ -1089,7 +1089,7 @@ body.information-information.iid-13 .formbulider.container{
     font-size: calc(15px + (27 - 20) * (100vw - 320px) / (1920 - 320))!important;
   }
   .article_listing_layout_3 .article-text-wrapper {
-    padding-top: calc(15px + (27 - 20) * (100vw - 320px) / (1920 - 320));
+    padding-top: calc(15px + (27 - 20) * (100vw - 320px) / (1920 - 320)) !important;
   }
   .article_listing_layout_3 .article-image-wrapper {
     flex: 1 1 100%;
