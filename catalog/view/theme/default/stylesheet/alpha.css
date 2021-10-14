@@ -545,7 +545,7 @@ body.product-product #product select.form-control{
     height: 45px;
 }
 
-body.product-product .special-sticker, body.product-product.sticker{
+body.product-product .special-sticker, body.product-product .sticker{
     border-radius: 50px !important;
     width: 70px;
     height: 70px;
@@ -994,6 +994,7 @@ body.information-information.iid-13 .formbulider.container{
       width: 50px;
       height: 50px;
       font-size: calc(12px + (27 - 20) * (100vw - 320px) / (1920 - 320));
+      border-radius: 50px !important;
   }
   #waiting_list .flex-group input {
       height: 45px;
@@ -1081,13 +1082,54 @@ body.information-information.iid-13 .formbulider.container{
 }
 
 @media (max-width: 540px){
+  .article_listing_layout_3 .article-image-wrapper {
+    flex: 1 1 100%;
+  }
+  body.product-product .tab-content .tab-pane p {
+    font-size: calc(12px + (27 - 20) * (100vw - 320px) / (1920 - 320)) !important;
+  }
+  .related-module{
+    padding-left: 0 !important;
+    padding-right: 0!important;
+  }
+  .section-space.html.html-36 .tbl_homepage_about h3 {
+    font-size: calc( (35px / 1.5) + (((32/3)/19.2) * 1vw))!important;
+  }
+  .left-fproduct p, .product-name a, .price, .price-old {
+    font-size: calc(15px + (27 - 20) * (100vw - 320px) / (1920 - 320)) !important;
+  }
+  .left-fproduct p, .product-name a, .price, .price-old {
+    font-size: calc(13px + (27 - 20) * (100vw - 320px) / (1920 - 320)) !important;
+  }
+  body:not(.cke_editable) h2:not(.swal2-title):not([style]) {
+    font-size: calc( (30px /1.5 ) + (((40/3)/19.2) * 1vw))!important;
+  }
+  .section-space.html.html-36 .tbl_homepage_about p {
+    font-size: calc( (15px / 1.1) + (((14/11)/19.2) * 1vw))!important;
+  }
+  h4 {
+    font-size: calc(15px + 0.41666667vw);
+  }
+  .section-space.max-offset.html.html-38 .row:first-child p span {
+    font-size: calc(12px + 0.41666667vw) !important;
+    color: #7a7a7a;
+  }
   .f-add {
     font-family: 'Lato Bold';
-    font-size: calc(20px + (27 - 20) * (100vw - 320px) / (1920 - 320));
+    font-size: calc(18px + (27 - 20) * (100vw - 320px) / (1920 - 320));
   }
   .f-info {
     font-family: 'Lato Regular';
-    font-size: calc(18px + (27 - 20) * (100vw - 320px) / (1920 - 320));
+    font-size: calc(15px + (27 - 20) * (100vw - 320px) / (1920 - 320));
+  }
+  .winn-desc p {
+    font-size: calc(13px + (27 - 20) * (100vw - 320px) / (1920 - 320)) !important;
+  }
+  .winning_title {
+    font-size: calc(15px + (27 - 20) * (100vw - 320px) / (1920 - 320));
+  }
+  .winning-desc {
+    font-size: calc(12px + (27 - 20) * (100vw - 320px) / (1920 - 320)) !important;
   }
   footer a {
     font-size: calc(18px + (27 - 20) * (100vw - 320px) / (1920 - 320));

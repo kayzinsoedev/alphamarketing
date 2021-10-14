@@ -66,7 +66,7 @@
               settings: {
                 slidesToShow: 2,
                 arrows: false,
-                autoplay: true,
+                autoplay: false,
                 autoplaySpeed: 5000
               }
             },
