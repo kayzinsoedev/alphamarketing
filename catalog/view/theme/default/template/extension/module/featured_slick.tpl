@@ -24,7 +24,6 @@
         </div>
     </div>
           <script type="text/javascript">
-
             $(window).load(function(){
               setTimeout(function () {
                 featured_product_slick<?= $uqid; ?>();
