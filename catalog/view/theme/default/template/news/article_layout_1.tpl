@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="pd-t30 pd-b30 flex flex-vcenter share-article">
-			<div class="pd-r15"><?= $text_share ?>:</div>
+			<div class="pd-r15 text-share"><?= $text_share ?>:</div>
 			<div><?= $share_html ?></div>
 		</div>
 

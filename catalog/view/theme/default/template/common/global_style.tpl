@@ -70,10 +70,10 @@
         font-size: 0!important;
         border:none!important;
         padding:0!important;
-        background:#ccc!important;
+        background:#ccc;
     }
     .slick-dots .slick-active button, body .slideshow .slider-custom-dots.active .owl-dot{
-        background:#000!important;
+        background:#000;
     }
     .slider-slideshow-description .slider-slideshow-description-texts {
         position: relative;
