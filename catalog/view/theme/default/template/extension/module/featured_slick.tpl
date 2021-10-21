@@ -7,6 +7,7 @@
   <div class="featured-main">
         <?php if($description){ ?>
           <div class="left-fproduct mg-b30 f-desc">
+            <h3><?=$title;?></h3>
             <p><?= $description; ?></p>
             <ul class="chin-cate-btn">
                  <li class="prev cate-btn"> <img src='image/catalog/AlphaPoineer/general/left.png' alt='arrow' class="arrow-img"/></li>
@@ -71,7 +72,7 @@
                     settings: {
                       slidesToShow: 2,
                       arrows: false,
-                      autoplay: true,
+                      autoplay: false,
                       autoplaySpeed: 5000
                     }
                   },
@@ -89,7 +90,7 @@
                     settings: {
                       slidesToShow: 1,
                       arrows: false,
-                      autoplay: true,
+                      autoplay: false,
                       autoplaySpeed: 5000
                     }
                   }

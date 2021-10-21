@@ -144,7 +144,6 @@
 						<?php if(!$not_avail) { ?>
 							<button type="button" data-loading-text="<?= $text_loading; ?>" class="btn btn-primary btn-cart btn-cart-<?= $product_id; ?>" data-product-id="<?= $product_id; ?>"><span class="cart-words"><?= $button_cart; ?></span>
 
-
 							</button>
 						<?php }else{ ?>
 							<button type="button" data-loading-text="<?= $text_loading; ?>" class="btn btn-primary btn-cart btn-cart-<?= $product_id; ?>" disabled data-product-id="<?= $product_id; ?>"><span class="cart-words">Out of stock</span></button>

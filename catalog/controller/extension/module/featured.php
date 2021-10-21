@@ -17,6 +17,10 @@ class ControllerExtensionModuleFeatured extends Controller {
 			$data['description'] = $setting['description'][(int)$this->config->get('config_language_id')];
 		}
 
+		if( isset($setting['title'][(int)$this->config->get('config_language_id')]) ){
+			$data['title'] = $setting['title'][(int)$this->config->get('config_language_id')];
+		}
+
 		$this->document->addStyle('catalog/view/javascript/slick/slick.min.css');
 		$this->document->addScript('catalog/view/javascript/slick/slick-custom.min.js');
 
@@ -34,7 +38,7 @@ class ControllerExtensionModuleFeatured extends Controller {
 
 		$data['products'] = array();
 
-		if (!empty($setting['product'])) { 
+		if (!empty($setting['product'])) {
 			$products = $setting['product'];
 
 			$width = $this->config->get($this->config->get('config_theme') . '_image_product_width');
@@ -48,6 +52,9 @@ class ControllerExtensionModuleFeatured extends Controller {
 		if(!$data['products']) return '';
 
 		$this->module_id++;
+
+		// $data['title'] = $setting['title'];
+		// debug($data['title']);
 
 		return $this->load->view('extension/module/featured_slick', $data);
 	}

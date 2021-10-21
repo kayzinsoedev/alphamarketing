@@ -24,7 +24,7 @@
             $data['email']  = $this->customer->getEmail();
             $this->load->language('extension/module/waiting_list');
             $data['title'] = $this->language->get('title');
-            
+
             return $this->load->view('extension/module/waiting_list', $data);
         }
 
@@ -33,7 +33,7 @@
 
             $json = array();
 
-            if(isset($this->request->post['email']) 
+            if(isset($this->request->post['email'])
             && isset($this->request->post['product_id'])
             && !is_array($this->request->post['email'])
             && !is_array($this->request->post['product_id'])
@@ -43,8 +43,8 @@
                 $this->load->model('extension/module/waiting_list');
                 $email = $this->db->escape(text($this->request->post['email']));
                 $product_id = (int)$this->request->post['product_id'];
-                $p_no_stock = $this->request->post['product_no_stock'] == 'true' ? '1' : '0';	
-                $selected_pov_ids = $this->request->post['pov_ids'];	
+                $p_no_stock = $this->request->post['product_no_stock'] == 'true' ? '1' : '0';
+                $selected_pov_ids = $this->request->post['pov_ids'];
                 $no_stock_pov_ids = $this->request->post['no_stock_pov_ids'];
 
                 $response = $this->model_extension_module_waiting_list->add($email, $product_id, $p_no_stock, $selected_pov_ids, $no_stock_pov_ids);
@@ -94,7 +94,7 @@
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender(html($this->config->get('config_name')));
                 $mail->setSubject(html($title));
-                
+
                 $font_link = '<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">';
                 $style_body = "font-family: 'Montserrat'; font-size: 12.5px; font-weight: 400;";
                 $style_link = 'text-decoration: none; color: #2083b8;';
@@ -109,50 +109,50 @@
 
                 $notified_ids = array();
                 foreach($notifications as $notify){
-                    $tmp_pov_group = array();	
-                    
+                    $tmp_pov_group = array();
+
                     if(isset($notify['email']) && text($notify['email']) != '' ){
 
-                        //list option	
-                        //check each option has stock	
-                        $option_array = array();	
-                        $option_stock = true;	
-                        $option_no_stock_array = array();	
-                        if($notify['selected_pov_ids'] && $notify['selected_pov_ids'] != ''){	
-                            $tmp_pov_group = explode('@', $notify['selected_pov_ids']);	
-                            foreach($tmp_pov_group as $option_index => $tmp_pov_ids){	
-                                $option_str = '';	
-                                    $tmp_option_array = explode(',',$tmp_pov_ids);	
-                                    foreach($tmp_option_array as $tmp_option){	
-                                        $option_info = $this->model_extension_module_waiting_list->getOptionName($tmp_option);	
-                                        if($option_info){	
-                                            $option_str .= '&emsp;<small>'.$option_info['name'].'</small><br>';	
-                                            //if option substract stock is yes and quantity is 0 add loop index to no stock array	
-                                            if($option_info['quantity'] == 0 && $option_info['subtract']){	
-                                                $option_stock = false;	
-                                                $option_no_stock_array[] = $option_index;	
-                                            }	
-                                        } else {	
-                                            $option_str .= '';	
-                                        }	
-                                    }	
-                                    $option_array[] = $option_str; 	
-                            }	
+                        //list option
+                        //check each option has stock
+                        $option_array = array();
+                        $option_stock = true;
+                        $option_no_stock_array = array();
+                        if($notify['selected_pov_ids'] && $notify['selected_pov_ids'] != ''){
+                            $tmp_pov_group = explode('@', $notify['selected_pov_ids']);
+                            foreach($tmp_pov_group as $option_index => $tmp_pov_ids){
+                                $option_str = '';
+                                    $tmp_option_array = explode(',',$tmp_pov_ids);
+                                    foreach($tmp_option_array as $tmp_option){
+                                        $option_info = $this->model_extension_module_waiting_list->getOptionName($tmp_option);
+                                        if($option_info){
+                                            $option_str .= '&emsp;<small>'.$option_info['name'].'</small><br>';
+                                            //if option substract stock is yes and quantity is 0 add loop index to no stock array
+                                            if($option_info['quantity'] == 0 && $option_info['subtract']){
+                                                $option_stock = false;
+                                                $option_no_stock_array[] = $option_index;
+                                            }
+                                        } else {
+                                            $option_str .= '';
+                                        }
+                                    }
+                                    $option_array[] = $option_str;
+                            }
                         }
 
                         $products = ''; //'<ul><li>';
                         $product_names = explode(',', $notify['products']);
                         foreach(explode(',', $notify['product_ids']) as $index => $product_id){
                             if(isset($product_names[$index])){
-                                //check if product index is on no stock index then skip	
-                                if(!in_array($index, $option_no_stock_array)){	
-                                    $url = $this->url->link('product/product&product_id='.$product_id);	
-                                    $name = $product_names[$index];	
-                                    $products .= '<li><a href="' . $url . '" alt="' . $name . '" style="' . $style_link . '">'.$name.'</a>';	
-                                    if(isset($option_array[$index])){	
-                                        $products .= '<br>'.$option_array[$index];	
-                                    }	
-                                    $products .= '</li>';	
+                                //check if product index is on no stock index then skip
+                                if(!in_array($index, $option_no_stock_array)){
+                                    $url = $this->url->link('product/product&product_id='.$product_id);
+                                    $name = $product_names[$index];
+                                    $products .= '<li><a href="' . $url . '" alt="' . $name . '" style="' . $style_link . '">'.$name.'</a>';
+                                    if(isset($option_array[$index])){
+                                        $products .= '<br>'.$option_array[$index];
+                                    }
+                                    $products .= '</li>';
                                 }
                             }
                         }
@@ -171,21 +171,21 @@
 
                         $mail->setHtml($description);
                         $mail->setTo($notify['email']);
-                        
+
                         $mail->send();
 
                         $notify_ids_array = array();
 
-                        if($notify['waiting_ids']){	
-                            $notify_ids_array = explode(',', $notify['waiting_ids']);	
-                            if($notify_ids_array){	
-                                foreach($notify_ids_array as $notify_index => $notify_id){	
-                                    //if got stock add to notify array	
-                                    if(!in_array($notify_index, $option_no_stock_array)){	
-                                        $notified_ids[] = $notify_id;	
-                                    }	
-                                }	
-                            }	
+                        if($notify['waiting_ids']){
+                            $notify_ids_array = explode(',', $notify['waiting_ids']);
+                            if($notify_ids_array){
+                                foreach($notify_ids_array as $notify_index => $notify_id){
+                                    //if got stock add to notify array
+                                    if(!in_array($notify_index, $option_no_stock_array)){
+                                        $notified_ids[] = $notify_id;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
