@@ -48,7 +48,7 @@
 			<div class="pull-right">
 				<button type="button" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary btn-submit" onclick="$('#form-product').submit();"><i class="fa fa-save"></i></button>
 				<a href="<?= $cancel; ?>" data-toggle="tooltip" title="<?= $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>
-				
+
 
 			</div>
 			<h1><?= $heading_title; ?></h1>
@@ -68,7 +68,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title"><i class="fa fa-pencil"></i> <?= $text_form; ?></h3>
-				<?php /* mod for next/previous page */ ?> 
+				<?php /* mod for next/previous page */ ?>
 				<?php if ($prev_product || $next_product) { ?>
 					<div class="pull-right next-prev-buttons">
 						<?php if ($prev_product) { ?>
@@ -79,13 +79,13 @@
 						<?php } ?>
 					</div>
 				<?php } ?>
-				<?php /* mod for next/previous page */ ?> 
+				<?php /* mod for next/previous page */ ?>
 			</div>
 			<div class="panel-body">
 				<form action="<?= $action; ?>" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#tab-general" data-toggle="tab"><?= $tab_product_1; ?></a></li>
-						<li><a href="#tab-data" data-toggle="tab"><?= $tab_product_2; ?></a></li>						
+						<li><a href="#tab-data" data-toggle="tab"><?= $tab_product_2; ?></a></li>
 						<li><a href="#tab-links" data-toggle="tab"><?= $tab_product_3; ?></a></li>
 						<li><a href="#tab-attribute" data-toggle="tab"><?= $tab_attribute; ?></a></li>
 						<li><a href="#tab-option" data-toggle="tab"><?= $tab_option; ?></a></li>
@@ -103,7 +103,7 @@
 
 					</ul>
 					<div class="tab-content">
-						
+
 						<div class="tab-pane active" id="tab-general">
 							<ul class="nav nav-tabs" id="language">
 								<?php foreach ($languages as $language) { ?>
@@ -402,7 +402,7 @@
 							</div>
 						</div>
 						<div class="tab-pane" id="tab-links">
-							
+
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="input-filename"><?= $entry_product_catalog; ?></label>
 									<div class="col-sm-10">
@@ -410,14 +410,14 @@
 											<input type="text" name="mask" value="<?php echo $mask; ?>" placeholder="" id="input-filename" class="form-control" />
 											<span class="input-group-btn">
 												<button type="button" id="button-upload" data-loading-text="<?= $text_loading; ?>" class="btn btn-primary"><i class="fa fa-upload"></i> <?= $button_upload; ?></button>
-											</span> 
+											</span>
 											<input type="hidden" name="filename" value="<?= $filename; ?>" />
 											<input type="hidden" name="product_pdf_id" value="<?= $product_pdf_id; ?>" />
 										</div>
 									</div>
 								</div>
 
-							
+
 							<div class="form-group">
 								<label class="col-sm-2 control-label" for="input-manufacturer"><span data-toggle="tooltip" title="<?= $help_manufacturer; ?>"><?= $entry_manufacturer; ?></span></label>
 								<div class="col-sm-10">
@@ -532,7 +532,7 @@
 																	<?php foreach ($languages as $language) { ?>
 																		<li class="<?php echo ($language['language_id']==1)?'active':''; ?>">
 																			<a href="#language-text-<?php echo $attribute_row; ?><?php echo $language['language_id']; ?>" data-toggle="tab">
-																				<img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>"/> 
+																				<img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>"/>
 																				<?php echo $language['name']; ?>
 																			</a>
 																		</li>
@@ -682,6 +682,7 @@
 																</tr>
 															</thead>
 															<tbody>
+                                <!-- <?php debug($product_option['product_option_value']);?> -->
 																<?php foreach ($product_option['product_option_value'] as $product_option_value) { ?>
 																	<tr id="option-value-row<?= $option_value_row; ?>">
 																		<td class="text-left"><select name="product_option[<?= $option_row; ?>][product_option_value][<?= $option_value_row; ?>][option_value_id]" class="form-control">
@@ -707,9 +708,9 @@
 																			<?php } ?>
 																		</select></td>
 																		<td class="text-left">
-																			
+
 																			<input value="<?= $product_option_value['sku']; ?>" name="product_option[<?= $option_row; ?>][product_option_value][<?= $option_value_row; ?>][sku]" class="form-control">
-																			
+
 																		</td>
 																		<td class="text-right"><select name="product_option[<?= $option_row; ?>][product_option_value][<?= $option_value_row; ?>][price_prefix]" class="form-control">
 																			<?php if ($product_option_value['price_prefix'] == '+') { ?>
@@ -791,7 +792,7 @@
 									<tbody>
 										<?php $recurring_row = 0; ?>
 										<?php foreach ($product_recurrings as $product_recurring) { ?>
-											
+
 											<tr id="recurring-row<?= $recurring_row; ?>">
 												<td class="text-left"><select name="product_recurring[<?= $recurring_row; ?>][recurring_id]" class="form-control">
 													<?php foreach ($recurrings as $recurring) { ?>
@@ -828,29 +829,29 @@
 						<!-- << Related Options / Связанные опции  -->
 						<?php if ($ro_installed) { ?>
 							<div class="tab-pane" id="tab-related_options">
-								
+
 								<ul class="nav nav-tabs" id="ro_nav_tabs">
 									<li>
 										<button type="button" id='ro_add_tab_button' onclick="ro_add_tab();" data-toggle="tooltip" class="btn"><i class="fa fa-plus-circle"></i></button>
 									</li>
 								</ul>
-					
+
 								<div class="tab-content" id="ro_content">
-								
+
 									<input type="hidden" name="ro_data_included" value="1">
-									
+
 								</div>
-								
+
 								<span class="help-block" style="margin-top: 30px;">
 									<?php echo $entry_ro_version.": ".$ro_version; ?> | <?php echo $text_ro_support; ?> | <?php echo $text_extension_page; ?>
 								</span>
-						
+
 							</div>
-					
+
 						<?php } ?>
 
 		        		<!-- >> Related Options / Связанные опции  -->
-		        		
+
 						<div class="tab-pane" id="tab-discount">
 							<div class="table-responsive">
 								<table id="discount" class="table table-striped table-bordered table-hover">
@@ -951,7 +952,7 @@
 													</span></div></td>
 													<td class="text-left" style="width: 10%;">
 														<div class="input-group time">
-															<input type="text" name="product_special[<?= $special_row; ?>][time_start]" value="<?= $product_special['time_start']; ?>" 
+															<input type="text" name="product_special[<?= $special_row; ?>][time_start]" value="<?= $product_special['time_start']; ?>"
 																	placeholder="Time Start" class="form-control" />
 															<span class="input-group-btn">
 																	<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
@@ -966,7 +967,7 @@
 													</td>
 													<td class="text-left" style="width: 10%;">
 														<div class="input-group time">
-															<input type="text" name="product_special[<?= $special_row; ?>][time_end]" value="<?= $product_special['time_end']; ?>" 
+															<input type="text" name="product_special[<?= $special_row; ?>][time_end]" value="<?= $product_special['time_end']; ?>"
 																	placeholder="<?= "Time End"; ?>" class="form-control" />
 															<span class="input-group-btn">
 																	<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
@@ -995,7 +996,7 @@
 											<td class="text-left"><?= $entry_image; ?></td>
 										</tr>
 									</thead>
-									
+
 									<tbody>
 										<tr>
 											<td class="text-left"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="<?= $thumb; ?>" alt="" title="" data-placeholder="<?= $placeholder; ?>" /></a><input type="hidden" name="image" value="<?= $image; ?>" id="input-image" /></td>
@@ -1023,13 +1024,13 @@
 												<!-- << OPTIONS IMAGE -->
                                                 <td>
                                                 	<?php if($product_options) { ?>
-                                                		<?php 
+                                                		<?php
                                                 		$po_counter = 1;
                                                 		foreach($product_options as $po) {?>
                                                 			<div class="text-left product-options-images-container">
                                                 				<b><?= $po['name'] ?></b>
                                                 				<?php if(!empty($po['product_option_value'])) {?>
-                                                					
+
 																	<?php if($product_option_image_mode == 1) { ?>
 																		<select name="product_image[<?= $image_row; ?>][options][<?= $po['product_option_id'] ?>][]" class="form-control">
 																			<option value="">--- Select <?= $po['name'] ?> ---</option>
@@ -1043,7 +1044,7 @@
 																			<label>
 																				<input <?= isset($product_image['option_image']) && array_search($pov['product_option_value_id'],array_column($product_image['option_image'], 'product_option_value_id')) > -1 ? 'checked' :'' ?> type="checkbox" name="product_image[<?= $image_row; ?>][options][<?= $po['product_option_id'] ?>][]" value="<?= $pov['product_option_value_id'] ?>" class="checkboxes-<?= $image_row; ?>">&nbsp;<?= $pov['name'] ?>
 																			</label>
-																		</div>    
+																		</div>
 																		<?php }?>
 																	<?php } ?>
 
@@ -1053,7 +1054,7 @@
 
 														<?php if($product_option_image_mode == 0) { ?>
                                     					<div>
-											              	<a style="cursor:pointer;" onclick="$('.checkboxes-<?= $image_row; ?>').prop('checked', true);">Select All</a> | 
+											              	<a style="cursor:pointer;" onclick="$('.checkboxes-<?= $image_row; ?>').prop('checked', true);">Select All</a> |
 											              	<a style="cursor:pointer;" onclick="$('.checkboxes-<?= $image_row; ?>').prop('checked', false);">Unselect All</a>
 											          	</div>
 														<?php } ?>
@@ -1158,24 +1159,24 @@
 		<?php if ($ckeditor_enabled == 1) { ?>
 			<script type="text/javascript">
 				<?php foreach ($languages as $language) { ?>
-					CKEDITOR.replace("input-description<?= $language['language_id']; ?>", { 
-						baseHref: "<?= $base_url; ?>", 
-						language: "<?= $language['code']; ?>", 
-						filebrowserBrowseUrl: 'index.php?route=common/filemanager&token=<?= $token; ?>', 
-						filebrowserImageBrowseUrl: 'index.php?route=common/filemanager&token=<?= $token; ?>', 
-						filebrowserFlashBrowseUrl: 'index.php?route=common/filemanager&token=<?= $token; ?>', 
-						skin : "<?= $ckeditor_skin; ?>", 
+					CKEDITOR.replace("input-description<?= $language['language_id']; ?>", {
+						baseHref: "<?= $base_url; ?>",
+						language: "<?= $language['code']; ?>",
+						filebrowserBrowseUrl: 'index.php?route=common/filemanager&token=<?= $token; ?>',
+						filebrowserImageBrowseUrl: 'index.php?route=common/filemanager&token=<?= $token; ?>',
+						filebrowserFlashBrowseUrl: 'index.php?route=common/filemanager&token=<?= $token; ?>',
+						skin : "<?= $ckeditor_skin; ?>",
 					codemirror: { theme: "<?= $codemirror_skin; ?>", }, height: 350 });
-					
+
 						<?php for($i = 0; $i < $attribute_row; $i++){ ?>
 						CKEDITOR.replace("input-attribute<?= $i.$language['language_id']; ?>", { baseHref: "<?= $base_url; ?>",  language: "<?= $language['code']; ?>", filebrowserBrowseUrl: 'index.php?route=common/filemanager&token=<?= $token; ?>', filebrowserImageBrowseUrl: 'index.php?route=common/filemanager&token=<?= $token; ?>', filebrowserFlashBrowseUrl: 'index.php?route=common/filemanager&token=<?= $token; ?>', skin : "<?= $ckeditor_skin; ?>", codemirror: { theme: "<?= $codemirror_skin; ?>", }, height: 350 });
 						<?php } ?>
-					
-				<?php } ?> 
+
+				<?php } ?>
 			</script>
 		<?php } ?>
 	<?php } ?>
-	<!-- Enhanced CKEditor -->	
+	<!-- Enhanced CKEditor -->
 	<script type="text/javascript" src="view/javascript/summernote/summernote.js"></script>
 	<link href="view/javascript/summernote/summernote.css" rel="stylesheet" />
 	<script type="text/javascript" src="view/javascript/summernote/opencart.js"></script>
@@ -1183,14 +1184,14 @@
 		$(document).on('focus', '.product-options-images-container select', function() {
 			$(this).addClass('highlight-select').find('option').css('color', '#000');
 		})
-		
+
 		$(document).on('blur', '.product-options-images-container select', function() {
 			$(this).removeClass('highlight-select');
 			$(this).prev('b').removeClass('highlight-text');
 			if (this.value.length) $(this).addClass('highlight-select');
 			if (this.value.length) $(this).prev('b').addClass('highlight-text');
 		})
-		
+
 		$(document).on('change', '.product-options-images-container select', function() {
 			if (this.value.length) $(this).addClass('highlight-select');
 			else $(this).removeClass('highlight-select')
@@ -1212,7 +1213,7 @@
 							manufacturer_id: 0,
 							name: '<?= $text_none; ?>'
 						});
-						
+
 						response($.map(json, function(item) {
 							return {
 								label: item['name'],
@@ -1227,7 +1228,7 @@
 				$('input[name=\'manufacturer_id\']').val(item['value']);
 			}
 		});
-		
+
 		// Category
 		$('input[name=\'category\']').autocomplete({
 			'source': function(request, response) {
@@ -1246,17 +1247,17 @@
 			},
 			'select': function(item) {
 				$('input[name=\'category\']').val('');
-				
+
 				$('#product-category' + item['value']).remove();
-				
+
 				$('#product-category').append('<div id="product-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_category[]" value="' + item['value'] + '" /></div>');
 			}
 		});
-		
+
 		$('#product-category').delegate('.fa-minus-circle', 'click', function() {
 			$(this).parent().remove();
 		});
-		
+
 		// Filter
 		$('input[name=\'filter\']').autocomplete({
 			'source': function(request, response) {
@@ -1275,17 +1276,17 @@
 			},
 			'select': function(item) {
 				$('input[name=\'filter\']').val('');
-				
+
 				$('#product-filter' + item['value']).remove();
-				
+
 				$('#product-filter').append('<div id="product-filter' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_filter[]" value="' + item['value'] + '" /></div>');
 			}
 		});
-		
+
 		$('#product-filter').delegate('.fa-minus-circle', 'click', function() {
 			$(this).parent().remove();
 		});
-		
+
 		// Downloads
 		$('input[name=\'download\']').autocomplete({
 			'source': function(request, response) {
@@ -1304,17 +1305,17 @@
 			},
 			'select': function(item) {
 				$('input[name=\'download\']').val('');
-				
+
 				$('#product-download' + item['value']).remove();
-				
+
 				$('#product-download').append('<div id="product-download' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_download[]" value="' + item['value'] + '" /></div>');
 			}
 		});
-		
+
 		$('#product-download').delegate('.fa-minus-circle', 'click', function() {
 			$(this).parent().remove();
 		});
-		
+
 		// Related
 		$('input[name=\'related\']').autocomplete({
 			'source': function(request, response) {
@@ -1333,13 +1334,13 @@
 			},
 			'select': function(item) {
 				$('input[name=\'related\']').val('');
-				
+
 				$('#product-related' + item['value']).remove();
-				
+
 				$('#product-related').append('<div id="product-related' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_related[]" value="' + item['value'] + '" /></div>');
 			}
 		});
-		
+
 		$('#product-related').delegate('.fa-minus-circle', 'click', function() {
 			$(this).parent().remove();
 		});
@@ -1347,9 +1348,9 @@
 	<script type="text/javascript">
 			<!--
 			var attribute_row = <?php echo $attribute_row; ?>;
-			
+
 			function addAttribute() {
-				
+
 				html  = '<tr id="attribute-row' + attribute_row + '">';
 				html += '  <td class="text-left"> <?php echo $entry_attribute; ?><p><input type="text" name="product_attribute[' + attribute_row + '][name]" value="" placeholder="<?php echo $entry_attribute; ?>" class="form-control" /><input type="hidden" name="product_attribute[' + attribute_row + '][attribute_id]" value="" /></p><p><?php echo $entry_text; ?></p>';
 				//html += '  </td><td class="text-left">';
@@ -1370,19 +1371,19 @@
 				html += '  </td>';
 				html += '  <td class="text-left"><button type="button" onclick="$(\'#attribute-row' + attribute_row + '\').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
 				html += '</tr>';
-				
-				
-				
+
+
+
 				$('#attribute tbody').append(html);
 				<?php foreach ($languages as $language) { ?>
 					CKEDITOR.replace("input-attribute"+attribute_row+"<?php echo $language['language_id']; ?>", { baseHref: "<?= $base_url; ?>", language: "<?php echo $language['code']; ?>", filebrowserBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>', filebrowserImageBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>', filebrowserFlashBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>', skin : "<?php echo $ckeditor_skin; ?>", codemirror: { theme: "<?php echo $codemirror_skin; ?>", }, height: 350 });
 				<?php } ?>
 				attributeautocomplete(attribute_row);
 				attribute_row++;
-				
-				
+
+
 			}
-			
+
 			function attributeautocomplete(attribute_row) {
 				$('input[name=\'product_attribute[' + attribute_row + '][name]\']').autocomplete({
 					'source': function (request, response) {
@@ -1402,15 +1403,15 @@
 					}
 				});
 			}
-			
+
 			$('#attribute tbody tr').each(function (index, element) {
 				attributeautocomplete(index);
 			});
-			
+
 	//--></script>
 	<script type="text/javascript"><!--
 		var option_row = <?= $option_row; ?>;
-		
+
 		$('input[name=\'option\']').autocomplete({
 			'source': function(request, response) {
 				$.ajax({
@@ -1435,7 +1436,7 @@
 				html += '	<input type="hidden" name="product_option[' + option_row + '][name]" value="' + item['label'] + '" />';
 				html += '	<input type="hidden" name="product_option[' + option_row + '][option_id]" value="' + item['value'] + '" />';
 				html += '	<input type="hidden" name="product_option[' + option_row + '][type]" value="' + item['type'] + '" />';
-				
+
 				html += '	<div class="form-group">';
 				html += '	  <label class="col-sm-2 control-label" for="input-required' + option_row + '"><?= $entry_required; ?></label>';
 				html += '	  <div class="col-sm-10"><select name="product_option[' + option_row + '][required]" id="input-required' + option_row + '" class="form-control">';
@@ -1443,49 +1444,49 @@
 				html += '	      <option value="1"><?= $text_yes; ?></option>';
 				html += '	  </select></div>';
 				html += '	</div>';
-				
+
 				if (item['type'] == 'text') {
 					html += '	<div class="form-group">';
 					html += '	  <label class="col-sm-2 control-label" for="input-value' + option_row + '"><?= $entry_option_value; ?></label>';
 					html += '	  <div class="col-sm-10"><input type="text" name="product_option[' + option_row + '][value]" value="" placeholder="<?= $entry_option_value; ?>" id="input-value' + option_row + '" class="form-control" /></div>';
 					html += '	</div>';
 				}
-				
+
 				if (item['type'] == 'textarea') {
 					html += '	<div class="form-group">';
 					html += '	  <label class="col-sm-2 control-label" for="input-value' + option_row + '"><?= $entry_option_value; ?></label>';
 					html += '	  <div class="col-sm-10"><textarea name="product_option[' + option_row + '][value]" rows="5" placeholder="<?= $entry_option_value; ?>" id="input-value' + option_row + '" class="form-control"></textarea></div>';
 					html += '	</div>';
 				}
-				
+
 				if (item['type'] == 'file') {
 					html += '	<div class="form-group" style="display: none;">';
 					html += '	  <label class="col-sm-2 control-label" for="input-value' + option_row + '"><?= $entry_option_value; ?></label>';
 					html += '	  <div class="col-sm-10"><input type="text" name="product_option[' + option_row + '][value]" value="" placeholder="<?= $entry_option_value; ?>" id="input-value' + option_row + '" class="form-control" /></div>';
 					html += '	</div>';
 				}
-				
+
 				if (item['type'] == 'date') {
 					html += '	<div class="form-group">';
 					html += '	  <label class="col-sm-2 control-label" for="input-value' + option_row + '"><?= $entry_option_value; ?></label>';
 					html += '	  <div class="col-sm-3"><div class="input-group date"><input type="text" name="product_option[' + option_row + '][value]" value="" placeholder="<?= $entry_option_value; ?>" data-date-format="YYYY-MM-DD" id="input-value' + option_row + '" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></div>';
 					html += '	</div>';
 				}
-				
+
 				if (item['type'] == 'time') {
 					html += '	<div class="form-group">';
 					html += '	  <label class="col-sm-2 control-label" for="input-value' + option_row + '"><?= $entry_option_value; ?></label>';
 					html += '	  <div class="col-sm-10"><div class="input-group time"><input type="text" name="product_option[' + option_row + '][value]" value="" placeholder="<?= $entry_option_value; ?>" data-date-format="HH:mm" id="input-value' + option_row + '" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></div>';
 					html += '	</div>';
 				}
-				
+
 				if (item['type'] == 'datetime') {
 					html += '	<div class="form-group">';
 					html += '	  <label class="col-sm-2 control-label" for="input-value' + option_row + '"><?= $entry_option_value; ?></label>';
 					html += '	  <div class="col-sm-10"><div class="input-group datetime"><input type="text" name="product_option[' + option_row + '][value]" value="" placeholder="<?= $entry_option_value; ?>" data-date-format="YYYY-MM-DD HH:mm" id="input-value' + option_row + '" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></div>';
 					html += '	</div>';
 				}
-				
+
 				if (item['type'] == 'select' || item['type'] == 'quantity' || item['type'] == 'radio' || item['type'] == 'checkbox' || item['type'] == 'image') {
 					html += '<div class="table-responsive">';
 					html += '  <table id="option-value' + option_row + '" class="table table-striped table-bordered table-hover">';
@@ -1511,48 +1512,48 @@
 					html += '    </tfoot>';
 					html += '  </table>';
 					html += '</div>';
-					
+
 					html += '  <select id="option-values' + option_row + '" style="display: none;">';
-					
+
 					for (i = 0; i < item['option_value'].length; i++) {
 						html += '  <option value="' + item['option_value'][i]['option_value_id'] + '">' + item['option_value'][i]['name'] + '</option>';
 					}
-					
+
 					html += '  </select>';
 					html += '</div>';
 				}
-				
+
 				$('#tab-option .tab-content').append(html);
-				
+
 				$('#option > li:last-child').before('<li><a href="#tab-option' + option_row + '" data-toggle="tab"><i class="fa fa-minus-circle" onclick=" $(\'#option a:first\').tab(\'show\');$(\'a[href=\\\'#tab-option' + option_row + '\\\']\').parent().remove(); $(\'#tab-option' + option_row + '\').remove();"></i>' + item['label'] + '</li>');
-				
+
 				$('#option a[href=\'#tab-option' + option_row + '\']').tab('show');
-				
+
 				$('[data-toggle=\'tooltip\']').tooltip({
 					container: 'body',
 					html: true
 				});
-				
+
 				$('.date').datetimepicker({
 					pickTime: false
 				});
-				
+
 				$('.time').datetimepicker({
 					pickDate: false
 				});
-				
+
 				$('.datetime').datetimepicker({
 					pickDate: true,
 					pickTime: true
 				});
-				
+
 				option_row++;
 			}
 		});
 	//--></script>
 	<script type="text/javascript"><!--
 		var option_value_row = <?= $option_value_row; ?>;
-		
+
 		function addOptionValue(option_row) {
 			html  = '<tr id="option-value-row' + option_value_row + '">';
 			html += '  <td class="text-left"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][option_value_id]" class="form-control">';
@@ -1563,14 +1564,14 @@
 			html += '    <option value="0"><?= $text_no; ?></option>';
 			html += '    <option value="1"><?= $text_yes; ?></option>';
 			html += '  </select></td>';
-			
+
 			html += '  <td class="text-right"><input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][sku]" value="" placeholder="SKU" class="form-control" /></td>';
-			
+
 			html += '  <td class="text-right"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][price_prefix]" class="form-control">';
 			html += '    <option value="+">+</option>';
 			html += '    <option value="-">-</option>';
 			html += '  </select>';
-			
+
 			html += '  <input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][price]" value="" placeholder="<?= $entry_price; ?>" class="form-control" /></td                                                                  >';
 			html += '  <td class="text-right"><select name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][points_prefix]" class="form-control">';
 			html += '    <option value="+">+</option>';
@@ -1584,16 +1585,16 @@
 			html += '  <input type="text" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][weight]" value="" placeholder="<?= $entry_weight; ?>" class="form-control" /></td>';
 			html += '  <td class="text-left"><button type="button" onclick="$(this).tooltip(\'destroy\');$(\'#option-value-row' + option_value_row + '\').remove();" data-toggle="tooltip" rel="tooltip" title="<?= $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
 			html += '</tr>';
-			
+
 			$('#option-value' + option_row + ' tbody').append(html);
 			$('[rel=tooltip]').tooltip();
-			
+
 			option_value_row++;
 		}
 	//--></script>
 	<script type="text/javascript"><!--
 		var discount_row = <?= $discount_row; ?>;
-		
+
 		function addDiscount() {
 			html  = '<tr id="discount-row' + discount_row + '">';
 			html += '  <td class="text-left"><select name="product_discount[' + discount_row + '][customer_group_id]" class="form-control">';
@@ -1608,19 +1609,19 @@
 			html += '  <td class="text-left" style="width: 20%;"><div class="input-group date"><input type="text" name="product_discount[' + discount_row + '][date_end]" value="" placeholder="<?= $entry_date_end; ?>" data-date-format="YYYY-MM-DD" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></td>';
 			html += '  <td class="text-left"><button type="button" onclick="$(\'#discount-row' + discount_row + '\').remove();" data-toggle="tooltip" title="<?= $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
 			html += '</tr>';
-			
+
 			$('#discount tbody').append(html);
-			
+
 			$('.date').datetimepicker({
 				pickTime: false
 			});
-			
+
 			discount_row++;
 		}
 	//--></script>
 	<script type="text/javascript"><!--
 		var special_row = <?= $special_row; ?>;
-		
+
 		function addSpecial() {
 			html  = '<tr id="special-row' + special_row + '">';
 			html += '  <td class="text-left"><select name="product_special[' + special_row + '][customer_group_id]" class="form-control">';
@@ -1644,13 +1645,13 @@
 			html += '  <td class="text-left" style="width: 10%;"><div class="input-group time"><input type="text" name="product_special[' + special_row + '][time_end]" value="" placeholder="Time End" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-clock-o"></i></button></span></div></td>';
 			html += '  <td class="text-left"><button type="button" onclick="$(\'#special-row' + special_row + '\').remove();" data-toggle="tooltip" title="<?= $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
 			html += '</tr>';
-			
+
 			$('#special tbody').append(html);
-			
+
 			$('.date').datetimepicker({
 				pickTime: false
 			});
-			
+
 			special_row++;
 		}
 	//--></script>
@@ -1660,7 +1661,7 @@
 		}
 
 		var image_row = <?= $image_row; ?>;
-		
+
 		function addImage() {
 			html  = '<tr id="image-row' + image_row + '">';
 			html += '  <td class="text-left"><a href="" id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img src="<?= $placeholder; ?>" alt="" title="" data-placeholder="<?= $placeholder; ?>" /></a><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
@@ -1668,7 +1669,7 @@
 			//<!-- >> OPTIONS IMAGE -->
             html += '  <td>';
             <?php if($product_options) {?>
-                <?php 
+                <?php
                 $po_counter = 1;
                 foreach($product_options as $po) {?>
                  html += '<div class="text-left product-options-images-container">';
@@ -1686,7 +1687,7 @@
 							<?php foreach($po['product_option_value'] as $pov) { ?>
 								html += '<div class="checkbox">';
 									html += '<label><input type="checkbox" name="product_image['+image_row+'][options][<?= $po['product_option_id'] ?>][]" value="<?= $pov['product_option_value_id'] ?>" class="checkboxes-'+image_row+'">&nbsp;<?= $pov['name'] ?></label>';
-								html += '</div>';  
+								html += '</div>';
 							<?php }?>
 						<?php } ?>
 
@@ -1711,15 +1712,15 @@
 			html += '  <td class="text-right"><input type="text" name="product_image[' + image_row + '][sort_order]" value="" placeholder="<?= $entry_sort_order; ?>" class="form-control" /></td>';
 			html += '  <td class="text-left"><button type="button" onclick="$(\'#image-row' + image_row  + '\').remove();" data-toggle="tooltip" title="<?= $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
 			html += '</tr>';
-			
+
 			$('#images tbody').append(html);
-			
+
 			image_row++;
 		}
 	//--></script>
 	<script type="text/javascript"><!--
 		var recurring_row = <?= $recurring_row; ?>;
-		
+
 		function addRecurring() {
 			html  = '<tr id="recurring-row' + recurring_row + '">';
 			html += '  <td class="left">';
@@ -1740,9 +1741,9 @@
 			html += '    <a onclick="$(\'#recurring-row' + recurring_row + '\').remove()" data-toggle="tooltip" title="<?= $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a>';
 			html += '  </td>';
 			html += '</tr>';
-			
+
 			$('#tab-recurring table tbody').append(html);
-			
+
 			recurring_row++;
 		}
 	//--></script>
@@ -1750,11 +1751,11 @@
 		$('.date').datetimepicker({
 			pickTime: false
 		});
-		
+
 		$('.time').datetimepicker({
 			pickDate: false
 		});
-		
+
 		$('.datetime').datetimepicker({
 			pickDate: true,
 			pickTime: true
@@ -1767,45 +1768,45 @@
 	<script type="text/javascript"><!--
 	$('#button-upload').on('click', function() {
 		$('#form-upload').remove();
-		
+
 		$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
-		
+
 		$('#form-upload input[name=\'file\']').trigger('click');
-		
+
 		if (typeof timer != 'undefined') {
 			clearInterval(timer);
 		}
-		
+
 		timer = setInterval(function() {
 			if ($('#form-upload input[name=\'file\']').val() != '') {
-				clearInterval(timer);		
-				
+				clearInterval(timer);
+
 				$.ajax({
 					url: 'index.php?route=catalog/download/upload&token=<?php echo $token; ?>',
-					type: 'post',		
+					type: 'post',
 					dataType: 'json',
 					data: new FormData($('#form-upload')[0]),
 					cache: false,
 					contentType: false,
-					processData: false,		
+					processData: false,
 					beforeSend: function() {
 						$('#button-upload').button('loading');
 					},
 					complete: function() {
 						$('#button-upload').button('reset');
-					},	
+					},
 					success: function(json) {
 						if (json['error']) {
 							alert(json['error']);
 						}
-						
+
 						if (json['success']) {
 							alert(json['success']);
-							
+
 							$('input[name=\'filename\']').val(json['filename']);
 							$('input[name=\'mask\']').val(json['mask']);
 						}
-					},			
+					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
@@ -1814,7 +1815,7 @@
 		}, 500);
 	});
 
-	function getPrice(price, discount) {         
+	function getPrice(price, discount) {
 		var numVal1 = Number(price);
 		var numVal2 = Number(discount);
 		return (numVal1 * ((100-numVal2) / 100 )).toFixed(2);
@@ -1873,35 +1874,35 @@ var ro_tabs_cnt = 0;
 
 // ROPRO
 function ro_tab_name_change(ro_tabs_num) {
-	
+
 	if ( $('#ro-use-'+ro_tabs_num+'').is(':checked') ) {
 		var new_tab_name = $('#rov-'+ro_tabs_num+' option[value="'+$('#rov-'+ro_tabs_num).val()+'"]').html();
 	} else {
 		var new_tab_name = '<?php echo addslashes($related_options_title); ?>';
 	}
-	
+
 	$('#ro_nav_tabs a[data-ro-cnt="'+ro_tabs_num+'"]').html(new_tab_name);
-	
+
 }
 
 function ro_add_tab(tab_data_param) {
 
 	var tab_data = tab_data_param ? tab_data_param : false;
-	
+
 	html = '<li><a href="#tab-ro-'+ro_tabs_cnt+'" data-toggle="tab" data-ro-cnt="'+ro_tabs_cnt+'">ro '+ro_tabs_cnt+'</a></li>';
 	$('#ro_add_tab_button').closest('li').before(html);
-	
+
 	html = '<div class="tab-pane" id="tab-ro-'+ro_tabs_cnt+'" data-ro-cnt="'+ro_tabs_cnt+'">'+ro_tabs_cnt+'</div>';
 	$('#ro_content').append(html);
-	
+
 	$('#ro_nav_tabs [data-ro-cnt='+ro_tabs_cnt+']').click();
-	
+
 	html = '';
 	html+= '<input type="hidden" name="ro_data['+ro_tabs_cnt+'][rovp_id]" value="'+(tab_data['rovp_id'] ? tab_data['rovp_id'] : '0')+'">';
 	html+= '<div class="form-group">';
-	
+
 	html+= '<label class="col-sm-2 control-label"><?php echo addslashes($entry_ro_use); ?></label>';
-	
+
 	html+= '<div class="col-sm-10">';
 	html+= '<label class="radio-inline">';
 		html+= '<input type="radio" name="ro_data['+ro_tabs_cnt+'][use]" id="ro-use-'+ro_tabs_cnt+'" value="1" '+((tab_data['use'])?('checked'):(''))+' onchange="ro_use_check('+ro_tabs_cnt+')" />';
@@ -1912,15 +1913,15 @@ function ro_add_tab(tab_data_param) {
 		html+= ' <?php echo $text_no; ?>';
 	html+= '</label>';
 	html+= '</div>';
-	
+
 	html+= '</div>';
-	
+
 	html+= '<div id="ro-use-data-'+ro_tabs_cnt+'">';
 	html+= '	<div class="form-group">';
 	html+= '		<label class="col-sm-2 control-label" for="rov-'+ro_tabs_cnt+'" ><?php echo $entry_ro_variant; ?></label>';
 	html+= '		<div class="col-sm-3" >';
 	html+= '			<select name="ro_data['+ro_tabs_cnt+'][rov_id]" id="rov-'+ro_tabs_cnt+'" class="form-control" onChange="ro_tab_name_change('+ro_tabs_cnt+');">';
-	
+
 	if (ro_settings['ro_use_variants']) {
 		for (var i in ro_variants_sorted) {
 			var ro_variant = ro_variants_sorted[i];
@@ -1929,27 +1930,27 @@ function ro_add_tab(tab_data_param) {
 			} else {
 				html+= '			<option value="'+ro_variant['rov_id']+'" '+(tab_data['rov_id'] && tab_data['rov_id'] == ro_variant['rov_id'] ? 'selected':'')+' >'+ro_variant['name']+'</option>';
 			}
-		}	
+		}
 	} else {
 		html+= '				<option value="0"><?php echo addslashes($text_ro_all_options); ?></option>';
 	}
-	
+
 	html+= '			</select>';
 	html+= '		</div>';
 	html+= '		<button type="button" onclick="ro_fill_all_combinations('+ro_tabs_cnt+');" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="<?php echo addslashes($entry_add_all_variants); ?>"><?php echo addslashes($entry_add_all_variants); ?></button>';
 	html+= '		<button type="button" onclick="ro_fill_all_combinations('+ro_tabs_cnt+',1);" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="<?php echo addslashes($entry_add_product_variants); ?>"><?php echo addslashes($entry_add_product_variants); ?></button>';
 	html+= '		<button type="button" onclick="ro_delete_all_combinations('+ro_tabs_cnt+');" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="<?php echo addslashes($entry_delete_all_combs); ?>"><?php echo addslashes($entry_delete_all_combs); ?></button>';
 	html+= '	</div>';
-	
-	
-	
+
+
+
 	html+= '	<div class="table-responsive">';
 	html+= '		<table class="table table-striped table-bordered table-hover">';
 	html+= '			<thead>';
 	html+= '				<tr>';
 	html+= '					<td class="text-left"><?php echo addslashes($entry_options_values); ?></td>';
 	html+= '					<td class="text-left" width="90"><?php echo addslashes($entry_related_options_quantity); ?>:</td>';
-			
+
 	var ro_fields = {spec_model: "<?php echo addslashes($entry_model); ?>"
 									,spec_sku: "<?php echo addslashes($entry_sku); ?>"
 									,spec_upc: "<?php echo addslashes($entry_upc); ?>"
@@ -1958,13 +1959,13 @@ function ro_add_tab(tab_data_param) {
 									,spec_ofs: "<?php echo addslashes($entry_stock_status); ?>"
 									,spec_weight: "<?php echo addslashes($entry_weight); ?>"
 									};
-								
+
 	for (var i in ro_fields) {
 		if (ro_settings[i] && ro_settings[i] != 0) {
 			html+= '<td class="text-left" width="90">'+ro_fields[i]+'</td>';
 		}
 	}
-			
+
 	if (ro_settings['spec_price'] ) {
 		html+= '				<td class="text-left" width="90" ><?php echo addslashes($entry_price); ?></td>';
 		if (ro_settings['spec_price_discount'] ) {
@@ -1974,53 +1975,53 @@ function ro_add_tab(tab_data_param) {
 			html+= '					<td class="text-left" style="90"><?php echo addslashes($tab_special); ?>: <font style="font-weight:normal;font-size:80%;">(<?php echo addslashes(str_replace(":","",$entry_customer_group." | ".$entry_price)); ?>)</font></td>';
 		}
 	}
-				
+
 	if (ro_settings['select_first'] && ro_settings['select_first'] == 1 ) {
 		html+= '				<td class="text-left" width="90" style="white-space:nowrap"><?php echo addslashes($entry_select_first_short); ?>:</td>';
 	}
-	
-					
+
+
 	html+= '					<td class="text-left" width="90"></td>';
-	
-	html+= '				<tr>';			
+
+	html+= '				<tr>';
 	html+= '		</thead>';
 	html+= '		<tbody id="tbody-ro-'+ro_tabs_cnt+'"></tbody>';
 	html+= '	</table>';
-	
+
 	html+= '	<div class="col-sm-2" >';
 	html+= '		<button type="button" onclick="ro_add_combination('+ro_tabs_cnt+', false);" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="<?php echo addslashes($entry_add_related_options); ?>"><?php echo addslashes($entry_add_related_options); ?></button>';
 	html+= '	</div>';
-			
+
 	html+= '</div>';
-	
+
 	html+= '';
 	html+= '';
 	html+= '</div>';
-	
+
 	$('#tab-ro-'+ro_tabs_cnt+'').html(html);
 	$('#ro-use-'+ro_tabs_cnt).prop('checked', true);
 	ro_use_check(ro_tabs_cnt);
-	
+
 	if (tab_data['ro']) {
 		for (var i in tab_data['ro']) {
 			ro_add_combination(ro_tabs_cnt, tab_data['ro'][i]);
 		}
 	}
-	
+
 	// select added tab ROPRO
 	$('#ro_nav_tabs a[data-ro-cnt="'+ro_tabs_cnt+'"]').click();
-	
+
 	ro_tabs_cnt++;
-	
+
 	return ro_tabs_cnt-1;
-	
+
 }
 
 function ro_use_check(ro_tabs_num) {
-	
+
 	$('#ro-use-data-'+ro_tabs_num).toggle( $('input[type=radio][name="ro_data['+ro_tabs_num+'][use]"][value="1"]').is(':checked') );
 	ro_tab_name_change(ro_tabs_num);
-	
+
 }
 
 function ro_add_combination(ro_tabs_num, params) {
@@ -2030,33 +2031,33 @@ function ro_add_combination(ro_tabs_num, params) {
 
 	var entry_add_discount = "<?php echo addslashes($entry_add_discount); ?>";
 	var entry_del_discount_title = "<?php echo addslashes($entry_del_discount_title); ?>";
-	
+
 	var entry_add_special = "<?php echo addslashes($entry_add_special); ?>";
 	var entry_del_special_title = "<?php echo addslashes($entry_del_special_title); ?>";
-	
-	
+
+
 	str_add = '';
 	str_add += "<tr id=\"related-option"+ro_counter+"\"><td>";
-	
+
 	var div_id = "ro_status"+ro_counter;
 	str_add +="<div id='"+div_id+"' style='color: red'></div>";
-	
+
 	for (var i in ro_variant['options']) {
-		
+
 		var ro_option = ro_variant['options'][i];
 		var option_id = ro_option['option_id'];
-	
+
 		str_add += "<div style='float:left;'><label class='col-sm-1 control-label' for='ro_o_"+ro_counter+"_"+option_id+"'> ";
 		str_add += "<nobr>"+ro_option['name']+":</nobr>";
 		str_add += "</label>";
 		str_add += "<select class='form-control' id='ro_o_"+ro_counter+"_"+option_id+"' name='ro_data["+ro_tabs_num+"][ro]["+ro_counter+"][options]["+option_id+"]' onChange=\"ro_refresh_status("+ro_tabs_num+","+ro_counter+")\">";
 		str_add += "<option value=0></option>";
-					
+
 			for (var j in ro_all_options[option_id]['values']) {
 				if((ro_all_options[option_id]['values'][j] instanceof Function) ) { continue; }
-				
+
 				var option_value_id = ro_all_options[option_id]['values'][j]['option_value_id'];
-				
+
 				str_add += "<option value='"+option_value_id+"'";
 				if (params['options'] && params['options'][option_id] && params['options'][option_id] == option_value_id) str_add +=" selected ";
 				str_add += ">"+ro_all_options[option_id]['values'][j]['name']+"</option>";
@@ -2065,22 +2066,22 @@ function ro_add_combination(ro_tabs_num, params) {
 		str_add += "</select>";
 		str_add += "</div>";
 	}
-	
-  
+
+
   str_add += "</td>";
   str_add += "<td>&nbsp;";
 	str_add += "<input type='text' class='form-control' name='ro_data["+ro_tabs_num+"][ro]["+ro_counter+"][quantity]' size='2' value='"+(params['quantity']||999)+"'>";
   str_add += "<input type='hidden' name='ro_data["+ro_tabs_num+"][ro]["+ro_counter+"][relatedoptions_id]' value='"+(params['relatedoptions_id']||"")+"'>";
   str_add += "</td>";
-	
+
 	str_add += ro_add_text_field(ro_tabs_num, ro_counter, 'spec_model', params, 'model');
 	str_add += ro_add_text_field(ro_tabs_num, ro_counter, 'spec_sku', params, 'sku');
 	str_add += ro_add_text_field(ro_tabs_num, ro_counter, 'spec_upc', params, 'upc');
 	str_add += ro_add_text_field(ro_tabs_num, ro_counter, 'spec_ean', params, 'ean');
 	str_add += ro_add_text_field(ro_tabs_num, ro_counter, 'spec_location', params, 'location');
-	
+
 	if (ro_settings['spec_ofs']) {
-		
+
 		str_add += '<td>';
 		str_add += '&nbsp;<select name="ro_data['+ro_tabs_num+'][ro]['+ro_counter+'][stock_status_id]" class="form-control">';
 		str_add += '<option value="0">-</option>';
@@ -2092,11 +2093,11 @@ function ro_add_combination(ro_tabs_num, params) {
 			str_add += '><?php echo addslashes($stock_status['name']); ?></option>';
 		<?php } ?>
 		str_add += '</select>';
-		
+
 		str_add += '</td>';
-	
+
 	}
-	
+
 	if (ro_settings['spec_weight'])	{
 		str_add += "<td>&nbsp;";
 		str_add += "<select class='form-control' name='ro_data["+ro_tabs_num+"][ro]["+ro_counter+"][weight_prefix]'>";
@@ -2107,7 +2108,7 @@ function ro_add_combination(ro_tabs_num, params) {
 		str_add += "<input type='text' class='form-control' name='ro_data["+ro_tabs_num+"][ro]["+ro_counter+"][weight]' value=\""+(params['weight']||'0.000')+"\" size='5'>";
 		str_add += "</td>";
 	}
-	
+
 	if (ro_settings['spec_price'])	{
 		str_add += "<td>&nbsp;";
 		if (ro_settings['spec_price_prefix']) {
@@ -2123,40 +2124,40 @@ function ro_add_combination(ro_tabs_num, params) {
 		str_add += "<input type='text' class='form-control' name='ro_data["+ro_tabs_num+"][ro]["+ro_counter+"][price]' value='"+(params['price']||'')+"' size='10'>";
 		str_add += "</td>";
 	}
-	
-	
+
+
 	if (ro_settings['spec_price'] && ro_settings['spec_price_discount'])	{
 		str_add += "<td>";
-	
+
 		str_add += "<button type='button' onclick=\"ro_add_discount("+ro_tabs_num+", "+ro_counter+", '');\" data-toggle='tooltip' title='"+entry_add_discount+"' class='btn btn-primary'><i class='fa fa-plus-circle'></i></button>";
 		str_add += "<div id='ro_price_discount"+ro_counter+"' >";
 		str_add += "</div>";
-		str_add += "</td>";	
+		str_add += "</td>";
 	}
-	
+
 	if (ro_settings['spec_price'] && ro_settings['spec_price_special'])	{
 		str_add += "<td>";
 		str_add += "<button type='button' onclick=\"ro_add_special("+ro_tabs_num+", "+ro_counter+", '');\" data-toggle='tooltip' title='"+entry_add_special+"' class='btn btn-primary'><i class='fa fa-plus-circle'></i></button>";
 		str_add += "<div id='ro_price_special"+ro_counter+"'>";
 		str_add += "</div>";
-		str_add += "</td>";	
+		str_add += "</td>";
 	}
-	
+
 	if (ro_settings['select_first'] && ro_settings['select_first']==1) {
 		str_add += "<td>&nbsp;";
-		
+
 		str_add += "<input id='defaultselect_"+ro_counter+"' type='checkbox' onchange='ro_check_defaultselectpriority("+ro_tabs_num+");' name='ro_data["+ro_tabs_num+"][ro]["+ro_counter+"][defaultselect]' "+((params && params['defaultselect']==1)?("checked"):(""))+" value='1'>";
 		str_add += "<input id='defaultselectpriority_"+ro_counter+"' type='text' class='form-control' title='<?php echo $entry_select_first_priority; ?>' name='ro_data["+ro_tabs_num+"][ro]["+ro_counter+"][defaultselectpriority]'  value=\""+((params && params['defaultselectpriority'])?(params['defaultselectpriority']):(""))+"\" >";
-		str_add += "</td>";	
+		str_add += "</td>";
 	}
 
 	str_add += "<td><br>";
 	str_add += "<button type=\"button\" class='btn btn-danger' onclick=\"$('#related-option" + ro_counter + "').remove();ro_refresh_status("+ro_tabs_num+");\" data-toggle=\"tooltip\" title=\"<?php echo $button_remove; ?>\" class='btn btn-primary' data-original-title=\"<?php echo $button_remove; ?>\" ><i class=\"fa fa-minus-circle\"></i></button>";
-	
+
   str_add += "</td></tr>";
-  
+
   $('#tbody-ro-'+ro_tabs_num).append(str_add);
-	
+
 	if (ro_settings['spec_price'] && ro_settings['spec_price_discount'])	{
 		if (params && params['discounts'] ) {
 			for (var i_dscnt in params['discounts']) {
@@ -2165,7 +2166,7 @@ function ro_add_combination(ro_tabs_num, params) {
 			}
 		}
 	}
-	
+
 	if (ro_settings['spec_price'] && ro_settings['spec_price_special'])	{
 		if (params && params['specials'] ) {
 			for (var i_dscnt in params['specials']) {
@@ -2174,34 +2175,34 @@ function ro_add_combination(ro_tabs_num, params) {
 			}
 		}
 	}
-	
+
 	ro_update_combination(ro_tabs_num,ro_counter);
-	
+
 	if (params==false) {
 		ro_refresh_status(ro_tabs_num);
 		ro_check_defaultselectpriority(ro_tabs_num);
 	}
-	
+
   ro_counter++;
-  
+
 }
 
 function ro_refresh_status(ro_tabs_num, ro_num) {
-  
+
 	if (ro_num || ro_num==0) {
 		ro_update_combination(ro_tabs_num, ro_num);
 	}
-	
+
 	var rov_id = $('#rov-'+ro_tabs_num).val();
 	var ro_variant = ro_variants[ rov_id ];
-	
+
 	$('#tab-ro-'+ro_tabs_num+' div[id^=ro_status]').html('');
-	
+
 	var opts_combs = [];
 	var checked_opts_combs = [];
 	$('#tab-ro-'+ro_tabs_num+' tr[id^=related-option]').each( function () {
 		var opts_comb = $(this).attr('ro_opts_comb');
-		
+
 		if ( $.inArray(opts_comb, opts_combs) != -1 && $.inArray(opts_comb, checked_opts_combs)==-1 ) {
 			$('#tab-ro-'+ro_tabs_num+' tr[ro_opts_comb='+opts_comb+']').each( function () {
 				$(this).find('div[id^=ro_status]').html('<?php echo $warning_equal_options; ?>');
@@ -2211,28 +2212,28 @@ function ro_refresh_status(ro_tabs_num, ro_num) {
 			opts_combs.push(opts_comb);
 		}
 	})
-	
+
 	return;
-	
+
 }
 
 function ro_update_combination(ro_tabs_num, ro_num) {
-	
+
 	var rov_id = $('#rov-'+ro_tabs_num).val();
 	var ro_variant = ro_variants[ rov_id ];
 	var str_opts = "";
-	
+
 	for (var i in ro_variant['options']) {
-		
+
 		if((ro_variant['options'][i] instanceof Function) ) { continue; }
-		
+
 		var option_id = ro_variant['options'][i]['option_id'];
-	
+
 		str_opts += "_o"+option_id;
 		str_opts += "_"+$('#ro_o_'+ro_num+'_'+option_id).val();
 	}
 	$('#related-option'+ro_num).attr('ro_opts_comb', str_opts);
-	
+
 }
 
 function ro_add_text_field(ro_tabs_num, ro_num, setting_name, params, field_name) {
@@ -2246,61 +2247,61 @@ function ro_add_text_field(ro_tabs_num, ro_num, setting_name, params, field_name
 }
 
 function ro_add_discount(ro_tabs_num, ro_counter, discount) {
-	
+
 	var first_name = "ro_data["+ro_tabs_num+"][ro]["+ro_counter+"][discounts]["+ro_discount_counter+"]";
 	var customer_group_id = (discount=="")?(0):(discount['customer_group_id']);
-	
+
 	str_add = "";
 	str_add += "<table id='related-option-discount"+ro_discount_counter+"' style='width:300px;'><tr><td>";
-	
+
 	str_add += "<select name='"+first_name+"[customer_group_id]' class='form-control' title=\"<?php echo htmlspecialchars($entry_customer_group); ?>\" style='float:left;width:80px;'>";
 	<?php foreach ($customer_groups as $customer_group) { ?>
 	str_add += "<option value='<?php echo $customer_group['customer_group_id']; ?>' "+((customer_group_id==<?php echo $customer_group['customer_group_id']; ?>)?("selected"):(""))+"><?php echo $customer_group['name']; ?></option>";
 	<?php } ?>
 	str_add += "</select>";
-	
+
 	str_add += "<input type='text' class='form-control' style='float:left;width:100px;' size='2' name='"+first_name+"[quantity]' value='"+((discount=="")?(""):(discount['quantity']))+"' title=\"<?php echo htmlspecialchars($entry_quantity); ?>\">";
 	str_add += "";
-	
+
 	// hidden
 	str_add += "<input type='hidden' name='"+first_name+"[priority]' value='"+((discount=="")?(""):(discount['priority']))+"' title=\"<?php echo htmlspecialchars($entry_priority); ?>\">";
-	
+
 	str_add += "<input type='text' class='form-control' style='float:left;width:80px;' size='10' name='"+first_name+"[price]' value='"+((discount=="")?(""):(discount['price']))+"' title=\"<?php echo htmlspecialchars($entry_price); ?>\">";
-	
+
 	str_add += "<button type=\"button\" onclick=\"$('#related-option-discount" + ro_discount_counter + "').remove();\" data-toggle=\"tooltip\" title=\"<?php echo $button_remove; ?>\" class=\"btn btn-danger\" style='float:left;' data-original-title=\"\"><i class=\"fa fa-minus-circle\"></i></button>";
 
 	str_add += "</td></tr></table>";
-	
+
 	$('#ro_price_discount'+ro_counter).append(str_add);
-	
+
 	ro_discount_counter++;
-	
+
 }
 
 function ro_add_special(ro_tabs_num, ro_counter, special) {
-	
+
 	var first_name = "ro_data["+ro_tabs_num+"][ro]["+ro_counter+"][specials]["+ro_special_counter+"]";
 	var customer_group_id = (special=="")?(0):(special['customer_group_id']);
-	
+
 	str_add = "";
 	str_add += "<table id='related-option-special"+ro_special_counter+"' style='width:200px;'><tr><td>";
-	
+
 	str_add += "<select name='"+first_name+"[customer_group_id]' class='form-control' style='float:left;width:80px;' title=\"<?php echo htmlspecialchars($entry_customer_group); ?>\">";
 	<?php foreach ($customer_groups as $customer_group) { ?>
 	str_add += "<option value='<?php echo $customer_group['customer_group_id']; ?>' "+((customer_group_id==<?php echo $customer_group['customer_group_id']; ?>)?("selected"):(""))+"><?php echo $customer_group['name']; ?></option>";
 	<?php } ?>
 	str_add += "</select>";
-	
+
 	// hidden
 	str_add += "<input type='hidden' size='2' name='"+first_name+"[priority]' value='"+((special=="")?(""):(special['priority']))+"' title=\"<?php echo htmlspecialchars($entry_priority); ?>\">";
 	str_add += "<input type='text'  class='form-control' style='float:left;width:80px;' size='10' name='"+first_name+"[price]' value='"+((special=="")?(""):(special['price']))+"' title=\"<?php echo htmlspecialchars($entry_price); ?>\">";
 	str_add += "<button type=\"button\" onclick=\"$('#related-option-special" + ro_special_counter + "').remove();\" data-toggle=\"tooltip\" title=\"<?php echo $button_remove; ?>\" class=\"btn btn-danger\" style='float:left;' data-original-title=\"<?php echo $button_remove; ?>\"><i class=\"fa fa-minus-circle\"></i></button>";
 	str_add += "</td></tr></table>";
-	
+
 	$('#ro_price_special'+ro_counter).append(str_add);
-	
+
 	ro_special_counter++;
-	
+
 }
 
 function ro_delete_all_combinations(ro_tabs_num) {
@@ -2348,7 +2349,7 @@ function ro_fill_all_combinations(ro_tabs_num, product_options_only) {
 	var rov_id = $('#rov-'+ro_tabs_num).val();
 	var ro_variant = ro_variants[ rov_id ];
 	var all_vars = [];
-	
+
 	if (product_options_only) {
 		var this_product_options = [];
 		$('select[name^=product_option][name*=option_value_id]').each(function() {
@@ -2357,7 +2358,7 @@ function ro_fill_all_combinations(ro_tabs_num, product_options_only) {
 			}
 		});
 	}
-	
+
 	if (!product_options_only) {
 		// if all options used, there may be millinons of combinations, it may freeze script before determination of combinations list
 		var numberOfCombs = numberOfPossibleCombinations(ro_variant);
@@ -2365,32 +2366,32 @@ function ro_fill_all_combinations(ro_tabs_num, product_options_only) {
 			return;
 		}
 	}
-		
-	var reversed_options = [];	
+
+	var reversed_options = [];
 	for (var i in ro_variant['options']) {
 		if((ro_variant['options'][i] instanceof Function) ) { continue; }
 		reversed_options.unshift(i);
 	}
-		
+
 	for (var i_index in reversed_options) {
-	
+
 		var i = reversed_options[i_index];
-		
+
 		var option_id = ro_variant['options'][i]['option_id'];
-		
+
 		var temp_arr = [];
 		for (var j in ro_all_options[option_id]['values']) {
 			if((ro_all_options[option_id]['values'][j] instanceof Function) ) { continue; }
-			
+
 			var option_value_id = ro_all_options[option_id]['values'][j]['option_value_id']
-			
+
 			if (product_options_only && $.inArray(option_value_id, this_product_options) == -1 ) { //
 				continue;
 			}
 			if (all_vars.length) {
 				for (var k in all_vars) {
 					if((all_vars[k] instanceof Function) ) { continue; }
-					
+
 					var comb_arr = all_vars[k].slice(0);
 					comb_arr[option_id] = option_value_id;
 					temp_arr.push( comb_arr );
@@ -2400,46 +2401,46 @@ function ro_fill_all_combinations(ro_tabs_num, product_options_only) {
 				comb_arr[option_id] = option_value_id;
 				temp_arr.push(comb_arr);
 			}
-			
+
 		}
 		if (temp_arr && temp_arr.length) {
 			all_vars = temp_arr.slice(0);
 		}
 	}
-	
+
 	if (all_vars.length) {
-		
+
 		if (product_options_only) {
 			var numberOfCombs = all_vars.length;
 			if (!confirmNumberOfCombinations(numberOfCombs)) {
 				return;
 			}
 		}
-	
+
 		for (var i in all_vars) {
 			if((all_vars[i] instanceof Function) ) { continue; }
-			
+
 			rop = {};
 			for (var j in all_vars[i]) {
 				if((all_vars[i][j] instanceof Function) ) { continue; }
 				rop[j] = all_vars[i][j];
 			}
-			
+
 			ro_add_combination(ro_tabs_num, {options: rop});
 
 		}
-		
+
 		ro_use_check(ro_tabs_num);
 		ro_refresh_status(ro_tabs_num);
 		ro_check_defaultselectpriority(ro_tabs_num);
-		
+
 	}
-	
+
 }
 
 // check priority fields (is it available or not) for default options combination
 function ro_check_defaultselectpriority(ro_tabs_num) {
-	
+
 	var dsc = $('#tab-ro-'+ro_tabs_num+' input[type=checkbox][id^=defaultselect_]');
 	var dsp;
 	for (var i=0;i<dsc.length;i++) {
@@ -2477,13 +2478,13 @@ setInterval(function(){
 if (ro_data && ro_settings) {
 	for (var i in ro_data) {
 		var ro_tabs_num = ro_add_tab(ro_data[i]);
-		
+
 		ro_use_check(ro_tabs_num);
 		ro_refresh_status(ro_tabs_num);
 		ro_check_defaultselectpriority(ro_tabs_num);
-		
+
 	}
-	
+
 }
 
 //--></script>
@@ -2491,4 +2492,3 @@ if (ro_data && ro_settings) {
 
 
 	<?= $footer; ?>
-		

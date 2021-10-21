@@ -1195,6 +1195,9 @@ body.information-information.iid-13 .formbulider.container{
 }
 
 @media (max-width: 540px){
+  .product-block .price_button{
+      min-height: auto;
+  }
   .about-us-nav {
     display: flex !important;
     flex-wrap: wrap;

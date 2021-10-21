@@ -404,7 +404,7 @@ class ControllerCatalogOption extends Controller {
 		$this->load->model('tool/image');
 
 		$data['option_values'] = array();
-
+		// debug($option_values);
 		foreach ($option_values as $option_value) {
 			if (is_file(DIR_IMAGE . $option_value['image'])) {
 				$image = $option_value['image'];
@@ -419,6 +419,7 @@ class ControllerCatalogOption extends Controller {
 				'option_value_description' => $option_value['option_value_description'],
 				'image'                    => $image,
 				'thumb'                    => $this->model_tool_image->resize($thumb, 100, 100),
+				'o_price'                  => $option_value['o_price'],
 				'sort_order'               => $option_value['sort_order']
 			);
 		}
@@ -428,6 +429,9 @@ class ControllerCatalogOption extends Controller {
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
+
+
+		// debug($data['option_values']);
 
 		$this->response->setOutput($this->load->view('catalog/option_form', $data));
 	}

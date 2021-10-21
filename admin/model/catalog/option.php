@@ -11,7 +11,7 @@ class ModelCatalogOption extends Model {
 
 		if (isset($data['option_value'])) {
 			foreach ($data['option_value'] as $option_value) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', o_price = '".$option_value['o_price']."', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
 
 				$option_value_id = $this->db->getLastId();
 
@@ -25,7 +25,7 @@ class ModelCatalogOption extends Model {
 	}
 
 	public function editOption($option_id, $data) {
-		debug($data['inclusive_discount']);
+		// debug($data['replace_price']);die;
 		$this->db->query("UPDATE `" . DB_PREFIX . "option` SET type = '" . $this->db->escape($data['type']) . "', sort_order = '" . (int)$data['sort_order'] . "', inclusive_discount = '".(int)$data['inclusive_discount']."', replace_price = '".(int)$data['replace_price']."' WHERE option_id = '" . (int)$option_id . "' ");
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "option_description WHERE option_id = '" . (int)$option_id . "'");
@@ -40,12 +40,24 @@ class ModelCatalogOption extends Model {
 		if (isset($data['option_value'])) {
 			foreach ($data['option_value'] as $option_value) {
 				if ($option_value['option_value_id']) {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_value_id = '" . (int)$option_value['option_value_id'] . "', option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
+					if($data['replace_price'] == 1){
+								$this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_value_id = '" . (int)$option_value['option_value_id'] . "', o_price = '".$option_value['o_price']."', option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
+					}else{
+								$this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_value_id = '" . (int)$option_value['option_value_id'] . "', option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
+					}
 				} else {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
+						if($data['replace_price'] == 1){
+									$this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', o_price = '".$option_value['o_price']."', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
+						}else{
+									$this->db->query("INSERT INTO " . DB_PREFIX . "option_value SET option_id = '" . (int)$option_id . "', image = '" . $this->db->escape(html_entity_decode($option_value['image'], ENT_QUOTES, 'UTF-8')) . "', sort_order = '" . (int)$option_value['sort_order'] . "'");
+						}
 				}
 
 				$option_value_id = $this->db->getLastId();
+
+				if($option_value['o_price'] > 0){
+			        $this->db->query("UPDATE ".DB_PREFIX."product_option_value SET price = '".$option_value['o_price']."' WHERE option_value_id = '" . (int)$option_value['option_value_id'] . "'");
+				}
 
 				foreach ($option_value['option_value_description'] as $language_id => $option_value_description) {
 					$this->db->query("INSERT INTO " . DB_PREFIX . "option_value_description SET option_value_id = '" . (int)$option_value_id . "', language_id = '" . (int)$language_id . "', option_id = '" . (int)$option_id . "', name = '" . $this->db->escape($option_value_description['name']) . "'");
@@ -139,6 +151,7 @@ class ModelCatalogOption extends Model {
 				'option_value_id' => $option_value['option_value_id'],
 				'name'            => $option_value['name'],
 				'image'           => $option_value['image'],
+				'o_price'         => $option_value['o_price'],
 				'sort_order'      => $option_value['sort_order']
 			);
 		}
@@ -164,6 +177,7 @@ class ModelCatalogOption extends Model {
 				'option_value_id'          => $option_value['option_value_id'],
 				'option_value_description' => $option_value_description_data,
 				'image'                    => $option_value['image'],
+				'o_price'                  => $option_value['o_price'],
 				'sort_order'               => $option_value['sort_order']
 			);
 		}

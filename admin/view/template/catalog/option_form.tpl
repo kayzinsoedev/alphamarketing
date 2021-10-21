@@ -110,7 +110,7 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
            <label class="col-sm-2 control-label" for="input-inclusive_discount"><?php echo "Inclusive Discount"; ?></label>
            <div class="col-sm-10">
                <select name="inclusive_discount" id="input-inclusive_discount" class="form-control">
@@ -118,7 +118,7 @@
                    <option value="0" <?php if($inclusive_discount == "0"){echo "SELECTED";} ?>>No</option>
                </select>
            </div>
-         </div>
+         </div> -->
 
          <div class="form-group">
             <label class="col-sm-2 control-label" for="input-replace_price"><?php echo "Replace Price"; ?></label>

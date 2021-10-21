@@ -27,7 +27,7 @@ class ControllerCatalogProduct extends Controller {
 
 	public function add() {
 
-		// << Related Options / Связанные опции 
+		// << Related Options / Связанные опции
         	$this->load->language('module/related_options');
         // >> Related Options / Связанные опции
 
@@ -105,10 +105,10 @@ class ControllerCatalogProduct extends Controller {
 
 	public function edit() {
 
-		// << Related Options / Связанные опции 
+		// << Related Options / Связанные опции
         	$this->load->language('module/related_options');
         // >> Related Options / Связанные опции
-        	
+
 		$this->load->language('catalog/product');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -314,7 +314,7 @@ class ControllerCatalogProduct extends Controller {
 	}
 
 	public function sticker(){
-		
+
 		$json = true;
 
 		$sticker = array('sticker' => array());
@@ -329,7 +329,7 @@ class ControllerCatalogProduct extends Controller {
 
 		$this->response->addHeader('Content-type: application/json');
 		$this->response->setOutput(json_encode($json));
-		
+
 	}
 
 	protected function getList() {
@@ -343,8 +343,8 @@ class ControllerCatalogProduct extends Controller {
 
 		/* mod for next/previous page */
 
-		// Sticker 
-		
+		// Sticker
+
 		$this->load->model('tool/image');
 
 		$this->document->addScript('view/javascript/select2/select2.min.js');
@@ -371,12 +371,12 @@ class ControllerCatalogProduct extends Controller {
 		);
 
 		$this->load->model('localisation/language');
-		
+
 		$data['languages'] = $this->model_localisation_language->getLanguages(); // debug($data['languages']);
-		
+
 		$data['token']			=	$this->session->data['token'];
 		$data['placeholder']	=	$this->model_tool_image->resize('placeholder.png', 100, 100);
-		
+
 		$query = $this->db->query('SELECT * FROM `' . DB_PREFIX . 'product_description` WHERE language_id=1 ORDER BY name ASC');
 
 		$data['product_list'] = $query->rows;
@@ -400,7 +400,7 @@ class ControllerCatalogProduct extends Controller {
 						}
 					}
 				}
-				
+
 				$data['stickers'][]	=	array(
 					'name'				=>	$sticker['name'],
 					'percentage'		=>	$sticker['percentage'],
@@ -424,7 +424,7 @@ class ControllerCatalogProduct extends Controller {
 	  	} else {
 			$data['error_facebook_sync'] = '';
   		}
-  
+
 	  	if (isset($this->session->data['error_facebook_delete'])) {
 			$data['error_facebook_delete'] = $this->session->data['error_facebook_delete'];
 			unset($this->session->data['error_facebook_delete']);
@@ -575,7 +575,7 @@ class ControllerCatalogProduct extends Controller {
 		$data['low_stock'] = $this->config->get('config_low_stock_quantity');
 
 		$data['category_id'] = $category_id;
-		
+
 		$this->load->model('catalog/category');
 
 		$data['categories'] = array();
@@ -607,7 +607,7 @@ class ControllerCatalogProduct extends Controller {
 		}
 
 		array_multisort(array_column($data['manufacturers'], 'name'), SORT_ASC, $data['manufacturers']);
-		
+
 		$data['products'] = array();
 
 		$filter_data = array(
@@ -647,7 +647,7 @@ class ControllerCatalogProduct extends Controller {
 				if (($product_special['date_start'] == '0000-00-00' || strtotime($product_special['date_start']) <= strtotime(date("Y-m-d"))) && ($product_special['date_end'] == '0000-00-00' || strtotime($product_special['date_end']) >= strtotime(date("Y-m-d")))) {
                     $today = date("d-m-Y");
                     $current = date("d-m-Y h:i a");
-                    
+
                     if(strtotime($product_special['date_start']." ".$product_special['time_start']) <= strtotime($current) && strtotime($product_special['date_end']." ".$product_special['time_end']) >= strtotime($current)){
 					    $special = $product_special['price'];
 					    break;
@@ -898,7 +898,7 @@ class ControllerCatalogProduct extends Controller {
 
 	protected function getForm() {
 
-		// << Related Options 
+		// << Related Options
 			$data['related_options_title'] = $this->language->get('related_options_title');
             $data['warning_equal_options'] = $this->language->get('warning_equal_options');
             $data['entry_options_values'] = $this->language->get('entry_options_values');
@@ -944,28 +944,28 @@ class ControllerCatalogProduct extends Controller {
 			$data['ro_settings'] = $ro_settings;
 			$data['ro_version'] = isset($ro_settings['related_options_version'])? $ro_settings['related_options_version'] : "";
 
-		// >> Related Options 
-			
+		// >> Related Options
+
 		$data['is_dev'] = $this->user->is_dev()? '':'hidden';
 
 		$this->load->language('catalog/download');
-		
+
 		$data['entry_filename'] = $this->language->get('entry_filename');
 		$data['entry_mask'] = $this->language->get('entry_mask');
 		$data['entry_product_catalog'] = $this->language->get('entry_product_catalog');
-		
+
 		$data['help_filename'] = $this->language->get('help_filename');
 		$data['text_loading'] = $this->language->get('text_loading');
 		$data['help_mask'] = $this->language->get('help_mask');
-		
+
 		$data['button_upload'] = $this->language->get('button_upload');
-	
+
 		$this->load->language('catalog/product');
-		
+
 		$data["base_url"] = HTTPS_CATALOG;
-	
+
 		$data['heading_title'] = $this->language->get('heading_title');
-	
+
 		$this->load->language('catalog/product');
 
 		$data['text_form'] = !isset($this->request->get['product_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
@@ -1089,31 +1089,31 @@ class ControllerCatalogProduct extends Controller {
 
 
 		// Enhanced CKEditor
-		if (!file_exists(DIR_CATALOG.'../vqmod/xml/enhanced_file_manager.xml') || file_exists(DIR_CATALOG.'../vqmod/xml/enhanced_file_manager.xml_')) {				
+		if (!file_exists(DIR_CATALOG.'../vqmod/xml/enhanced_file_manager.xml') || file_exists(DIR_CATALOG.'../vqmod/xml/enhanced_file_manager.xml_')) {
 			$data['fm_installed'] = 0;
 		}
-		if (file_exists(DIR_CATALOG.'../vqmod/xml/enhanced_file_manager.xml') && $this->config->get('fm_installed') == 1) {				
+		if (file_exists(DIR_CATALOG.'../vqmod/xml/enhanced_file_manager.xml') && $this->config->get('fm_installed') == 1) {
 			$data['fm_installed'] = 1;
 		}
-					
+
 		if ($this->config->get('ea_cke_enable_ckeditor') == 1) {
 			$data['ckeditor_enabled'] = 1;
 		} else {
 			$data['ckeditor_enabled'] = 0;
 		}
-		
+
 		if ($this->config->get('ea_cke_ckeditor_skin')) {
 		  	$data['ckeditor_skin'] = $this->config->get('ea_cke_ckeditor_skin');
 		} else {
 		  	$data['ckeditor_skin'] = 'moono-lisa';
 		}
-		
+
 		if ($this->config->get('ea_cke_codemirror_skin')) {
 		  	$data['codemirror_skin'] = $this->config->get('ea_cke_codemirror_skin');
 		} else {
 		  	$data['codemirror_skin'] = 'eclipse';
 		}
-		// Enhanced CKEditor	
+		// Enhanced CKEditor
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -1229,7 +1229,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
-		// << Related Options / Связанные опции 
+		// << Related Options / Связанные опции
             if ( !$this->model_module_related_options ) {
                 $this->load->model('module/related_options');
             }
@@ -1709,7 +1709,7 @@ class ControllerCatalogProduct extends Controller {
 				'time_end'          => ($product_special['time_end'] != '') ? $product_special['time_end'] :  ''
 			);
 		}
-		
+
 		// Image
 		if (isset($this->request->post['image'])) {
 			$data['image'] = $this->request->post['image'];
@@ -1852,7 +1852,7 @@ class ControllerCatalogProduct extends Controller {
 		} else {
 			$data['product_pdf_id'] = '';
 		}
-	
+
 		if (isset($this->request->post['filename'])) {
 					$data['filename'] = $this->request->post['filename'];
 		} elseif (!empty($product_info)) {
@@ -1866,37 +1866,40 @@ class ControllerCatalogProduct extends Controller {
 		} elseif (!empty($product_info)) {
 			$data['mask'] = $product_info['mask'];
 		} else {
-			$data['mask'] = ''; 
+			$data['mask'] = '';
 		}
 
 		// get product option image mode (normal option / combination option)
 		$data['product_option_image_mode'] = $this->config->get('theme_default_product_option_image_mode');
-		
+
+
+		// debug($data['product_options']);
+
 		$this->response->setOutput($this->load->view('catalog/product_form', $data));
 	}
 
 	protected function validateForm() {
-		// << Related Options / Связанные опции 
-			
+		// << Related Options / Связанные опции
+
 			if (isset($this->request->post['ro_data']) && is_array($this->request->post['ro_data']) ) {
-			
+
 				$ro_data = $this->request->post['ro_data'];
-				
+
 				foreach ($ro_data as $ro_dataset) {
-			
+
 					if (isset($ro_dataset['ro']) && isset($ro_dataset['use']) && $ro_dataset['use'] ) {
 						$ro = $ro_dataset['ro'];
-						
+
 						if (is_array($ro)) {
-						
+
 							// there's shouldn't be options not relevant to selected vatiant
 							// some extra options - not a problem, any missing - bad
-							
+
 							if ( !$this->model_module_related_options ) {
 								$this->load->model('module/related_options');
 							}
 							$voptions = $this->model_module_related_options->get_options_for_variant($ro_dataset['rov_id']);
-							
+
 							$enough_options = true;
 							foreach ($ro as $ro_comb) {
 								foreach ($voptions as $option_id) {
@@ -1905,24 +1908,24 @@ class ControllerCatalogProduct extends Controller {
 									}
 								}
 							}
-							
+
 							if (!$enough_options) {
 								$this->error['warning'] = $this->language->get('error_not_enough_options');
 								break;
 							}
-					
-					
+
+
 							$ro_keys = array_keys($ro);
-					
+
 							// there's shouldn't be equal optons combinations
 							if ($enough_options) {
 								$have_equal = false;
 								for ($i=0;$i<count($ro_keys);$i++) {
 									$key_i = $ro_keys[$i];
-									
+
 									for ($j=0;$j<count($ro_keys);$j++) {
 										$key_j = $ro_keys[$j];
-									
+
 										if ($key_j!=$key_i) {
 											$all_equal = true;
 											foreach ($ro[$key_i]['options'] as $option_id => $option_value_id) {
@@ -1934,19 +1937,19 @@ class ControllerCatalogProduct extends Controller {
 										}
 									}
 								}
-								
+
 								if ($have_equal) {
 									$this->error['warning'] = $this->language->get('error_equal_options');
 									break;
 								}
-							}	
-							
+							}
+
 						}
 					}
 				}
 			}
 
-		// >> Related Options 
+		// >> Related Options
 
 
 		if (!$this->user->hasPermission('modify', 'catalog/product')) {
@@ -1954,7 +1957,7 @@ class ControllerCatalogProduct extends Controller {
 		}
 
 		$default_language = 1;
-		
+
 		foreach ($this->request->post['product_description'] as $language_id => $value) {
 			if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 255)) {
 				$this->error['name'][$language_id] = $this->language->get('error_name');
@@ -1963,7 +1966,7 @@ class ControllerCatalogProduct extends Controller {
 				if( trim($value['meta_title']) == "" ){
 					$value['meta_title'] = $this->request->post['product_description'][$language_id]['meta_title']	= $value['name'];
 				}
-				
+
 				if( $default_language == $language_id && trim($this->request->post["keyword"]) == "" ){
 					$this->request->post['keyword'] = generateSlug($value['name']);
 				}
@@ -2094,7 +2097,7 @@ class ControllerCatalogProduct extends Controller {
 					'model'      => $result['model'],
 					'option'     => $option_data,
 					'price'      => $result['price'],
-					
+
 					// for module helper autocomplete use
 					'label' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
 					'value' => $result['product_id'],
@@ -2207,7 +2210,7 @@ class ControllerCatalogProduct extends Controller {
 	}
 
 	private function getNextPrevious($product_id) {
-		
+
 		$product_np_cache = $this->cache->get('product_np');
 
 		if ($product_np_cache) {
@@ -2218,10 +2221,10 @@ class ControllerCatalogProduct extends Controller {
 			$data['next'] = 0;
 
 			if (isset($product_np_cache[$key-1])) {
-				$data['prev'] = $product_np_cache[$key-1];	
+				$data['prev'] = $product_np_cache[$key-1];
 			}
 			if (isset($product_np_cache[$key+1])) {
-				$data['next'] = $product_np_cache[$key+1];	
+				$data['next'] = $product_np_cache[$key+1];
 			}
 
 			return $data;
