@@ -74,9 +74,9 @@
 						<?=$wishlist; ?>
 					<?php } ?>
 
-					<span class="hidden" >
+					<span class="" >
 						<?=$currency; ?>
-						<?=$language; ?>
+						<!-- <?=$language; ?> -->
 					</span>
 				</div>
 

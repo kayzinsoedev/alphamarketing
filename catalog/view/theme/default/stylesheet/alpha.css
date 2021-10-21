@@ -1156,6 +1156,11 @@ body.information-information.iid-13 .formbulider.container{
     display: block;
     width: 100%;
   }
+
+  /* .cart-buttons .btn-cart{
+      padding: calc(20px + (20 - 17) * (100vw - 375px) / (1900 - 375)) calc(30px + (20 - 17) * (100vw - 375px) / (1900 - 375)) !important;
+  } */
+
 }
 
 
