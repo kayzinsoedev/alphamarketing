@@ -62,6 +62,8 @@
             if (is_file(DIR_IMAGE . $product_info['image2']) && $product_info['image2'])
                 $image2 = $this->model_tool_image->resize($product_info['image2'], $width, $height);
 
+
+
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')){
                 if ($this->config->get('config_product_decimal_places')) {
                     $price = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
@@ -69,6 +71,10 @@
                     $price = $this->currency->format2($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
                 }
             }
+
+              // debug($this->session->data['currency']);
+
+
 
             if ((float)$product_info['special']) {
                 if ($this->config->get('config_product_decimal_places')) {
@@ -197,7 +203,6 @@
                 'more_options'      => count($options) > 1?$this->language->get('text_more_options_available'):'',
             );
 
-            // debug($product_info);die;
             return $this->load->view('component/product_info', $info);
         }
     }

@@ -7,7 +7,7 @@ class ControllerProductCategory extends Controller {
 
 		// Load Languages
 		$data = array_merge($data, $this->load->language('product/category'));
-		// << Related Options / Связанные опции  
+		// << Related Options / Связанные опции
 		$this->load->language('module/related_options');
 		$data['text_ro_clear_options'] 			= $this->language->get('text_ro_clear_options');
 		// >> Related Options / Связанные опции
@@ -59,24 +59,24 @@ class ControllerProductCategory extends Controller {
 
 			if($var=='sort'){
 				$sort_n_order = explode('-', $default);
-				
+
 				$order = $listing_conditions[$var];
 				if(count($sort_n_order) > 1){
 					$order	=	$sort_n_order[1];
 				}
-				
+
 				${$var}	=	$sort_n_order[0];
 			}
 			elseif($var != 'order'){
 				${$var}	=	$default;
 			}
-			
+
 		}
 
 		foreach($url_filter as $url => $skip){
 			${$url}	= '';
 			foreach ($listing_conditions as $var => $default_l){
-				if( !strpos( '_' . $skip, $var) && $default_l){ 
+				if( !strpos( '_' . $skip, $var) && $default_l){
 				    if($var == 'sort' && isset($this->request->get['sort'])) {
 						${$var} = $this->request->get['sort'];
 					}
@@ -84,7 +84,7 @@ class ControllerProductCategory extends Controller {
 				}
 			}
 		}
-		
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -123,7 +123,7 @@ class ControllerProductCategory extends Controller {
 				}
 
 				if($category_info){
-					
+
 					$data['heading_title'] = $category_info['name'];
 
 					$this->document->setTitle($category_info['meta_title']);
@@ -134,7 +134,7 @@ class ControllerProductCategory extends Controller {
 
 				}
 			}
-			
+
 		}
 		// End Load Category
 
@@ -157,11 +157,11 @@ class ControllerProductCategory extends Controller {
 			'sort'               => $sort,
 			'order'              => $order,
 			'start'              => ($page - 1) * $limit,
-			'limit'              => $limit,				
+			'limit'              => $limit,
 		); // debug($filter_data);
 
 		$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
-			
+
 		$results = $this->model_catalog_product->getProducts($filter_data);
 
 		if($category_info){
@@ -199,7 +199,7 @@ class ControllerProductCategory extends Controller {
 			// stores the pixel params in the session
 			$this->request->post['facebook_pixel_event_params_FAE'] =
 			addslashes(json_encode($facebook_pixel_event_params_FAE));
-			
+
 		}
 
 		$after_clean = '';
@@ -223,7 +223,7 @@ class ControllerProductCategory extends Controller {
 		}
 
 		// Sort
-			
+
 		$type_of_sort = array(
 			'name'	=>	'pd.name',
 			'price'	=>	'p.price',
@@ -258,11 +258,11 @@ class ControllerProductCategory extends Controller {
 
 		// Limit
 		$data['limits'] = array();
-		
+
 		$config_limit = $this->config->get($theme . '_product_limit');
 
 		$limits = range($config_limit, $config_limit*5, $config_limit);
-		
+
 		sort($limits);
 
 		foreach($limits as $key => $value) {
@@ -278,7 +278,7 @@ class ControllerProductCategory extends Controller {
 				);
 			}
 		}
-		
+
 		// End Limit
 
 		$path = '';
@@ -291,11 +291,11 @@ class ControllerProductCategory extends Controller {
 			'page'	=>	$page,
 			'limit'	=>	$limit,
 			'url'	=>	$this->url->link('product/category', $path . 'page={page}'. $pagination_filter),
-		); 
+		);
 
 		//debug($page_data);
 		$data = array_merge($this->load->controller('component/pagination', $page_data), $data);
-		
+
 		// http://googlewebmastercentral.blogspot.com/2011/09/pagination-with-relnext-and-relprev.html
 		if ($page == 1) {
 		    $this->document->addLink($this->url->link('product/category', '', true), 'canonical');
@@ -318,7 +318,8 @@ class ControllerProductCategory extends Controller {
 		$data = $this->load->controller('component/common', $data);
 
 		$data['category_layout'] = $this->config->get('theme_default_product_category_layout_setting');
-		
+
+			
 		$this->response->setOutput($this->load->view('product/category', $data));
 	}
 }

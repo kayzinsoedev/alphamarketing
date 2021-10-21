@@ -109,11 +109,35 @@
               <input type="text" name="sort_order" value="<?php echo $sort_order; ?>" placeholder="<?php echo $entry_sort_order; ?>" id="input-sort-order" class="form-control" />
             </div>
           </div>
+
+          <div class="form-group">
+           <label class="col-sm-2 control-label" for="input-inclusive_discount"><?php echo "Inclusive Discount"; ?></label>
+           <div class="col-sm-10">
+               <select name="inclusive_discount" id="input-inclusive_discount" class="form-control">
+                   <option value="1" <?php if($inclusive_discount == "1"){echo "SELECTED";} ?>>Yes</option>
+                   <option value="0" <?php if($inclusive_discount == "0"){echo "SELECTED";} ?>>No</option>
+               </select>
+           </div>
+         </div>
+
+         <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-replace_price"><?php echo "Replace Price"; ?></label>
+            <div class="col-sm-10">
+                <select name="replace_price" id="input-replace_price" class="form-control">
+                    <option value="1" <?php if($replace_price == "1"){echo "SELECTED";} ?>>Yes</option>
+                    <option value="0" <?php if($replace_price == "0"){echo "SELECTED";} ?>>No</option>
+                </select>
+            </div>
+          </div>
+
+
+
           <table id="option-value" class="table table-striped table-bordered table-hover">
             <thead>
               <tr>
                 <td class="text-left required"><?php echo $entry_option_value; ?></td>
                 <td class="text-left"><?php echo $entry_image; ?></td>
+                <td class="text-right"><?php echo "Price"; ?></td>
                 <td class="text-right"><?php echo $entry_sort_order; ?></td>
                 <td></td>
               </tr>
@@ -132,7 +156,8 @@
                   <?php } ?>
                   <?php } ?></td>
                 <td class="text-left"><a href="" id="thumb-image<?php echo $option_value_row; ?>" data-toggle="image" class="img-thumbnail"><img src="<?php echo $option_value['thumb']; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a>
-                  <input type="hidden" name="option_value[<?php echo $option_value_row; ?>][image]" value="<?php echo $option_value['image']; ?>" id="input-image<?php echo $option_value_row; ?>" /></td>
+                <input type="hidden" name="option_value[<?php echo $option_value_row; ?>][image]" value="<?php echo $option_value['image']; ?>" id="input-image<?php echo $option_value_row; ?>" /></td>
+                <td class="text-right"><input type="text" name="option_value[<?php echo $option_value_row; ?>][o_price]" value="<?php echo $option_value['o_price']; ?>" class="form-control" /></td>
                 <td class="text-right"><input type="text" name="option_value[<?php echo $option_value_row; ?>][sort_order]" value="<?php echo $option_value['sort_order']; ?>" class="form-control" /></td>
                 <td class="text-left"><button type="button" onclick="$('#option-value-row<?php echo $option_value_row; ?>').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
               </tr>
@@ -141,7 +166,7 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="3"></td>
+                <td colspan="4"></td>
                 <td class="text-left"><button type="button" onclick="addOptionValue();" data-toggle="tooltip" title="<?php echo $button_option_value_add; ?>" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
               </tr>
             </tfoot>
@@ -164,7 +189,7 @@ $('select[name=\'type\']').trigger('change');
 var option_value_row = <?php echo $option_value_row; ?>;
 
 function addOptionValue() {
-	html  = '<tr id="option-value-row' + option_value_row + '">';	
+	html  = '<tr id="option-value-row' + option_value_row + '">';
     html += '  <td class="text-left"><input type="hidden" name="option_value[' + option_value_row + '][option_value_id]" value="" />';
 	<?php foreach ($languages as $language) { ?>
 	html += '    <div class="input-group">';
@@ -172,13 +197,14 @@ function addOptionValue() {
     html += '    </div>';
 	<?php } ?>
 	html += '  </td>';
-    html += '  <td class="text-left"><a href="" id="thumb-image' + option_value_row + '" data-toggle="image" class="img-thumbnail"><img src="<?php echo $placeholder; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="option_value[' + option_value_row + '][image]" value="" id="input-image' + option_value_row + '" /></td>';
-	html += '  <td class="text-right"><input type="text" name="option_value[' + option_value_row + '][sort_order]" value="" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>';
+  html += '  <td class="text-left"><a href="" id="thumb-image' + option_value_row + '" data-toggle="image" class="img-thumbnail"><img src="<?php echo $placeholder; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a><input type="hidden" name="option_value[' + option_value_row + '][image]" value="" id="input-image' + option_value_row + '" /></td>';
+  html += '  <td class="text-right"><input type="text" name="option_value[' + option_value_row + '][o_price]" value="" placeholder="0" class="form-control" /></td>';
+  html += '  <td class="text-right"><input type="text" name="option_value[' + option_value_row + '][sort_order]" value="" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" /></td>';
 	html += '  <td class="text-left"><button type="button" onclick="$(\'#option-value-row' + option_value_row + '\').remove();" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
-	html += '</tr>';	
-	
+	html += '</tr>';
+
 	$('#option-value tbody').append(html);
-	
+
 	option_value_row++;
 }
 //--></script></div>

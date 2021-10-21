@@ -2991,7 +2991,7 @@ small + .inline-link {
     background: white;
 }
 .form-control {
-  border-radius: 20px !important;
+  border-radius: 20px;
 }
 .btn .btn-primary:not(.btn-cart){
   padding: 6px 20px !important;

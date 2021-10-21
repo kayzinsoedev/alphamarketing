@@ -372,6 +372,27 @@ class ControllerCatalogOption extends Controller {
 			$data['sort_order'] = '';
 		}
 
+
+		if (isset($this->request->post['inclusive_discount'])) {
+			$data['inclusive_discount'] = $this->request->post['inclusive_discount'];
+		} elseif (!empty($option_info)) {
+			$data['inclusive_discount'] = $option_info['inclusive_discount'];
+		} else {
+			$data['inclusive_discount'] = '0';
+		}
+
+
+
+		if (isset($this->request->post['replace_price'])) {
+			$data['replace_price'] = $this->request->post['replace_price'];
+		} elseif (!empty($option_info)) {
+			$data['replace_price'] = $option_info['replace_price'];
+		} else {
+			$data['replace_price'] = '0';
+		}
+
+
+
 		if (isset($this->request->post['option_value'])) {
 			$option_values = $this->request->post['option_value'];
 		} elseif (isset($this->request->get['option_id'])) {

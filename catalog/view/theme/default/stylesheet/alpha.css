@@ -73,7 +73,7 @@ body .slideshow .light_image .banner-overlay{
   padding: 64px 64px 57px 83px;
 }
 .home-know-more-btn{
-  padding: 12px 40px !important;
+  /* padding: 12px 40px !important; */
 }
 .submit-contactus-btn{
   padding: 10px 40px 10px 40px !important;
@@ -659,10 +659,28 @@ span.banner-desc p:first-child {
     text-align: center;
 }
 
-.btn-primary{
-    padding: calc(16px + (27 - 20) * (100vw - 320px) / (1920 - 320)) calc(66px + (27 - 20) * (100vw - 320px) / (1920 - 320)) !important;
+.btn-primary:not(#button-reward):not(.cart-dorpdown-footer .btn-primary):not(body.quickcheckout-checkout #button-login):not(.button-update):not(.button-remove):not(#button-coupon):not(#button-payment-method):not(#button-confirm)
+{
+    padding: calc(16px + (27 - 20) * (100vw - 320px) / (1920 - 320)) calc(66px + (27 - 20) * (100vw - 320px) / (1920 - 320));
     font-size: calc(11px + (27 - 20) * (100vw - 320px) / (1920 - 320))!important;
-    font-size: calc(13px + (27 - 20) * (100vw - 320px) / (1920 - 320))!important;
+    /* font-size: calc(13px + (27 - 20) * (100vw - 320px) / (1920 - 320))!important; */
+    color: #fff !important;
+}
+
+.btn-default:not(.btn-number){
+  padding: calc(16px + (27 - 20) * (100vw - 320px) / (1920 - 320)) calc(66px + (27 - 20) * (100vw - 320px) / (1920 - 320)) !important;
+  /* font-size: calc(11px + (27 - 20) * (100vw - 320px) / (1920 - 320))!important; */
+}
+.btn-default{
+  border-radius: 50px;
+}
+
+#button-confirm,#button-coupon,#button-reward,#button-payment-method,.btn-number{
+  border-radius: 0;
+}
+.cart-dorpdown-footer .btn-primary{
+    font-size: calc(10px + (27 - 20) * (100vw - 320px) / (1920 - 320))!important;
+    color: #fff !important;
 }
 
 .slider-slideshow-description .slider-slideshow-description-link{
