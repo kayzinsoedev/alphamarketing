@@ -659,12 +659,14 @@ span.banner-desc p:first-child {
     text-align: center;
 }
 
-.btn-primary:not(#button-reward):not(.cart-dorpdown-footer .btn-primary):not(body.quickcheckout-checkout #button-login):not(.button-update):not(.button-remove):not(#button-coupon):not(#button-payment-method):not(#button-confirm)
+.btn-primary:not(#button-reward):not(.cart-dorpdown-footer .btn-primary):not(body.quickcheckout-checkout #button-login):not(.button-update):not(.button-remove):not(#button-coupon):not(#button-payment-method)
+/* :not(#button-confirm) */
 {
     padding: calc(16px + (27 - 20) * (100vw - 320px) / (1920 - 320)) calc(66px + (27 - 20) * (100vw - 320px) / (1920 - 320));
     font-size: calc(11px + (27 - 20) * (100vw - 320px) / (1920 - 320))!important;
     /* font-size: calc(13px + (27 - 20) * (100vw - 320px) / (1920 - 320))!important; */
     color: #fff !important;
+    border-radius: 50px;
 }
 
 .btn-default:not(.btn-number){
