@@ -910,6 +910,9 @@ body.information-information.iid-13 .formbulider.container{
 }
 
 @media (max-width: 1536px){
+  .text_menu_font, .header-container .header-menu #main-menu li, .header-container .header-menu #main-menu li a {
+    font-size: calc( (18px / 1.1) + (((22/11)/19.2) * 1vw));
+  }
   .slider-slideshow-description-texts {
     width: 50% !important;
   }
@@ -1206,7 +1209,7 @@ body.information-information.iid-13 .formbulider.container{
   }
 
   .cart-buttons .btn-cart{
-    padding: calc(20px + (20 - 17) * (100vw - 375px) / (1900 - 375)) calc(50px + (20 - 17) * (100vw - 375px) / (1900 - 375)) !important
+    /* padding: calc(20px + (20 - 17) * (100vw - 375px) / (1900 - 375)) calc(50px + (20 - 17) * (100vw - 375px) / (1900 - 375)) !important */
   }
 
 
