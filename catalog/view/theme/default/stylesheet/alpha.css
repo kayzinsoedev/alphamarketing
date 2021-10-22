@@ -247,6 +247,10 @@ input#input-quantity {
 
 /*changes */
 
+.currency-txt{
+  color: #01693e;
+}
+
 .slick-dots li button {
     background: #9c9c9c!important;
 }
@@ -910,6 +914,9 @@ body.information-information.iid-13 .formbulider.container{
 }
 
 @media (max-width: 1536px){
+  .cart-words{
+    font-size: calc(13px + (20 - 17) * (100vw - 375px) / (1900 - 375));
+  }
   .text_menu_font, .header-container .header-menu #main-menu li, .header-container .header-menu #main-menu li a {
     font-size: calc( (18px / 1.1) + (((22/11)/19.2) * 1vw));
   }
