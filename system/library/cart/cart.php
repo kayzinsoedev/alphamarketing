@@ -1,10 +1,10 @@
 <?php
 namespace Cart;
 class Cart {
-	// << Related Options / Связанные опции 
+	// << Related Options / Связанные опции
 		private $relatedoptions_model = false;
 		private $ro_global_registry = false;
-	// >> Related Options / Связанные опции 
+	// >> Related Options / Связанные опции
 	private $data = array();
 
 	public function __construct($registry) {
@@ -43,8 +43,8 @@ class Cart {
 			}
 		}
 	}
-	// << Related Options / Связанные опции 
-			
+	// << Related Options / Связанные опции
+
 	private function ro_calc_price($product_price, $ro_combs) {
 
 		$ro_model = $this->ro_get_model();
@@ -56,9 +56,9 @@ class Cart {
 
 	private function ro_get_model() {
 		global $loader, $registry;
-		
+
 		if ( !$this->relatedoptions_model ) {
-		
+
 			$current_loader = $loader;
 			if ( $this->ro_global_registry ) {
 				$current_loader = $this->ro_global_registry->get('load');
@@ -69,26 +69,26 @@ class Cart {
 					$current_registry = $registry;
 				}
 			}
-			
+
 			if ( !$current_registry->get('model_module_related_options') ) {
 				$current_loader->model('module/related_options');
 			}
 			$this->relatedoptions_model = $current_registry->get('model_module_related_options');
 		}
 		return $this->relatedoptions_model;
-		
+
 	}
 
 	private function ro_get_products_data(&$ro_quantities) {
-		
+
 		$ro_model = $this->ro_get_model();
-		
+
 		$ro_for_products = array();
 		$ro_quantities = array(); // total quantities by related options
-		
+
 		if (	$ro_model->installed() ) {
 			if (!$this->data) {
-			
+
 				if ( VERSION >= '2.1.0.0' ) {
 					$cart_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "cart WHERE customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
 
@@ -96,14 +96,14 @@ class Cart {
 						$key = $cart['cart_id'];
 						$product_id = $cart['product_id'];
 						$quantity = $cart['quantity'];
-						
+
 						if ($quantity > 0) {
 							$options = (array)json_decode($cart['option']);
-							
-							
+
+
 							$ro_for_products[$key] = $ro_model->get_related_options_sets_by_poids($product_id, $options, true, true);
 							//$ro_for_products[$key] = $ro_model->get_related_options_sets_by_poids($product_id, $options);
-							
+
 							if ($ro_for_products[$key]) {
 								foreach ($ro_for_products[$key] as $ro_comb) {
 									if (!isset($ro_quantities[$ro_comb['relatedoptions_id']])) {
@@ -115,22 +115,22 @@ class Cart {
 						}
 					}
 				} else {
-			
+
 					foreach ($this->session->data['cart'] as $key => $quantity) {
 						$product = unserialize(base64_decode($key));
-			
+
 						$product_id = $product['product_id'];
-			
+
 						// Options
 						if (!empty($product['option'])) {
 							$options = $product['option'];
 						} else {
 							$options = array();
 						}
-						
+
 						$ro_for_products[$key] = $ro_model->get_related_options_sets_by_poids($product_id, $options, true, true);
 						//$ro_for_products[$key] = $ro_model->get_related_options_sets_by_poids($product_id, $options);
-						
+
 						if ($ro_for_products[$key]) {
 							foreach ($ro_for_products[$key] as $ro_comb) {
 								if (!isset($ro_quantities[$ro_comb['relatedoptions_id']])) {
@@ -143,16 +143,16 @@ class Cart {
 				}
 			}
 		}
-		
+
 		return $ro_for_products;
-		
+
 	}
-			
+
 	// >> Related Options / Связанные опции
 
 	public function getProducts($cart_id = 0) {
-		// << Related Options / Связанные опции 
-			
+		// << Related Options / Связанные опции
+
 		$ro_quantities = array();
 		$ro_for_products = $this->ro_get_products_data($ro_quantities);
 		if ($ro_for_products) {
@@ -160,7 +160,7 @@ class Cart {
 		} else {
 			$ro_settings = false;
 		}
-	
+
 		// >> Related Options / Связанные опции
 		$product_data = array();
 
@@ -180,7 +180,7 @@ class Cart {
 			$product_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_to_store p2s LEFT JOIN " . DB_PREFIX . "product p ON (p2s.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) WHERE p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND p2s.product_id = '" . (int)$cart['product_id'] . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.date_available <= NOW() AND p.status = '1'");
 
 			if ($product_query->num_rows && ($cart['quantity'] > 0)) {
-				// << Related Options / Связанные опции 
+				// << Related Options / Связанные опции
 
 					$ro_price = false;
 					if ( VERSION >= '2.1.0.0' ) {
@@ -189,31 +189,31 @@ class Cart {
 					} else {
 						$ro_cart_quantity = $quantity;
 					}
-					
+
 					$ro_for_product = false;
 					if ($ro_for_products && isset($ro_for_products[$key]) ) {
 						$ro_for_product = $ro_for_products[$key];
 					} elseif ( !$key && !empty($cart) ) {
 						$ro_temp_options = json_decode($cart['option']);
 						$ro_for_product = $this->relatedoptions_model->get_related_options_sets_by_poids($cart['product_id'], $ro_temp_options, true);
-						
+
 					}
 					if ( $ro_for_product ) {
 						$ro_model = '';
 						$ro_weight = false;
-						
+
 						if ( isset($ro_settings['spec_price']) && $ro_settings['spec_price'] ) {
 							$ro_price_data = $this->ro_calc_price($product_query->row['price'], $ro_for_product);
 							//$ro_price_data = $this->ro_calc_price($product_query->row['price'], $ro_for_products[$key]);
 						}
-						
+
 						$last_model_is_from_product = false;
 						foreach ($ro_for_product as $ro_comb) {
 						//foreach ($ro_for_products[$key] as $ro_comb) {
 							if ($ro_comb['quantity'] < $ro_cart_quantity && ( empty($ro_settings['allow_zero_select']) || !$ro_settings['allow_zero_select']) ) {
 								$stock = false;
 							}
-							
+
 							if ( isset($ro_settings['spec_model']) && $ro_settings['spec_model'] ) {
 								if ($ro_settings['spec_model'] == 1) {
 									$ro_model = $ro_comb['model'];
@@ -236,10 +236,10 @@ class Cart {
 									$last_model_is_from_product = false;
 								}
 							}
-							
+
 							// Related Options weight
 							if (isset($ro_settings['spec_weight']) && $ro_settings['spec_weight'] ) {
-								
+
 								if ( $ro_comb['weight'] != 0 ) {
 									if ($ro_comb['weight_prefix'] == '+') {
 										if ($ro_weight === false) $ro_weight = $product_query->row['weight'];
@@ -252,19 +252,19 @@ class Cart {
 									}
 								}
 							}
-							
+
 						}
-						
+
 						if ($ro_model) {
 							$product_query->row['model'] = $ro_model;
 						}
-						
+
 						if (isset($ro_settings['spec_weight']) && $ro_settings['spec_weight'] && $ro_weight !== false ) {
 							$product_query->row['weight'] = $ro_weight;
 						}
-						
+
 					}
-					
+
 
 				// >> Related Options / Связанные опции
 
@@ -273,19 +273,21 @@ class Cart {
 				$option_price = 0;
 				$option_points = 0;
 				$option_weight = 0;
+				$exclusive_discount = 0;
+		        $new_price = $cart['price'];
 
 				$option_data = array();
 
 				$option_image = '';
 
 				foreach (json_decode($cart['option']) as $product_option_id => $value) {
-					$option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, o.type FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$cart['product_id'] . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+					$option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, o.type, o.inclusive_discount, o.replace_price FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$cart['product_id'] . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
-			
+
 					if ($option_query->num_rows) {
-						
-						$option_image = $this->getProductOptionImageByProductID((int)$cart['product_id'], $value);  
-					
+
+						$option_image = "";
+
 						if ($option_query->row['type'] == 'select' || $option_query->row['type'] == 'radio') {
 							$option_value_query = $this->db->query("SELECT pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix, pov.sku FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$value . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
@@ -295,11 +297,24 @@ class Cart {
 									$sku = trim($option_value_query->row['sku']);
 								}
 
-								if ($option_value_query->row['price_prefix'] == '+') {
-									$option_price += $option_value_query->row['price'];
-								} elseif ($option_value_query->row['price_prefix'] == '-') {
-									$option_price -= $option_value_query->row['price'];
-								}
+    							if($option_query->row['replace_price'] == 1){
+    							    $new_price = $option_value_query->row['price'];
+    							}else{
+
+    								if ($option_value_query->row['price_prefix'] == '+') {
+    									$option_price += $option_value_query->row['price'];
+    								} elseif ($option_value_query->row['price_prefix'] == '-') {
+    									$option_price -= $option_value_query->row['price'];
+    								}
+
+        							if($option_query->row['inclusive_discount'] == 0){
+        								if ($option_value_query->row['price_prefix'] == '+') {
+        									$exclusive_discount += $option_value_query->row['price'];
+        								} elseif ($option_value_query->row['price_prefix'] == '-') {
+        									$exclusive_discount -= $option_value_query->row['price'];
+        								}
+        							}
+    							}
 
 								if ($option_value_query->row['points_prefix'] == '+') {
 									$option_points += $option_value_query->row['points'];
@@ -320,7 +335,7 @@ class Cart {
 								// in order to check whole cart option qty (for e.g. product with same 1st option and diff 2nd option)
 								if ($config_dependent_option) {
 									$opt_key = $value.'-'.$option_value_query->row['name'];
-									
+
 									if($option_value_query->row['subtract']) {
 										if(isset($cart_opts[$opt_key])) {
 											$cart_opts[$opt_key] += $cart['quantity'];
@@ -329,7 +344,7 @@ class Cart {
 											$cart_opts[$opt_key] = $cart['quantity'];
 										}
 									}
-									
+
 									if(isset($cart_opts[$opt_key]) && $cart_opts[$opt_key] > $option_value_query->row['quantity']) {
 										$stock = false;
 									}
@@ -356,8 +371,8 @@ class Cart {
 								);
 							}
 						} elseif (($option_query->row['type'] == 'quantity')) {
-							
-							foreach ($value as $product_option_value_id => $quantity) {			
+
+							foreach ($value as $product_option_value_id => $quantity) {
 								$option_value_query = $this->db->query("SELECT pov.option_value_id, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix, ovd.name, pov.sku FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (pov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 								if ($option_value_query->num_rows) {
 
@@ -370,6 +385,15 @@ class Cart {
 									} elseif ($option_value_query->row['price_prefix'] == '-') {
 										$option_price -= ($option_value_query->row['price'] * $quantity[0]);
 									}
+
+
+									if($option_query->row['inclusive_discount'] == 0){
+        								if ($option_value_query->row['price_prefix'] == '+') {
+        									$exclusive_discount += ($option_value_query->row['price'] * $quantity[0]);
+        								} elseif ($option_value_query->row['price_prefix'] == '-') {
+        									$exclusive_discount -= ($option_value_query->row['price'] * $quantity[0]);
+        								}
+        							}
 
 									if ($option_value_query->row['points_prefix'] == '+') {
 										$option_points += $option_value_query->row['points'];
@@ -386,11 +410,11 @@ class Cart {
 									if ($option_value_query->row['subtract'] && (!$option_value_query->row['quantity'] || ($option_value_query->row['quantity'] < $cart['quantity']))) {
 										$stock = false;
 									}
-									
+
 									// in order to check whole cart option qty (for e.g. product with same 1st option and diff 2nd option)
 									if ($config_dependent_option) {
 										$opt_key = $product_option_value_id.'-'.$option_value_query->row['name'];
-										
+
 										if($option_value_query->row['subtract']) {
 											if(isset($cart_opts[$opt_key])) {
 												$cart_opts[$opt_key] += $cart['quantity'];
@@ -399,7 +423,7 @@ class Cart {
 												$cart_opts[$opt_key] = $cart['quantity'];
 											}
 										}
-										
+
 										if(isset($cart_opts[$opt_key]) && $cart_opts[$opt_key] > $option_value_query->row['quantity']) {
 											$stock = false;
 										}
@@ -426,7 +450,7 @@ class Cart {
 								}
 							}
 						} elseif (($option_query->row['type'] == 'checkbox') && is_array($value)) {
-							foreach ($value as $product_option_value_id) {								
+							foreach ($value as $product_option_value_id) {
 								$option_value_query = $this->db->query("SELECT pov.option_value_id, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix, ovd.name, pov.sku FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (pov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 								if ($option_value_query->num_rows) {
 
@@ -434,11 +458,24 @@ class Cart {
 										$sku = trim($option_value_query->row['sku']);
 									}
 
-									if ($option_value_query->row['price_prefix'] == '+') {
-										$option_price += $option_value_query->row['price'];
-									} elseif ($option_value_query->row['price_prefix'] == '-') {
-										$option_price -= $option_value_query->row['price'];
-									}
+
+        							if($option_query->row['replace_price'] == 1){
+        							    $new_price = $option_value_query->row['price'];
+        							}else{
+    									if ($option_value_query->row['price_prefix'] == '+') {
+    										$option_price += $option_value_query->row['price'];
+    									} elseif ($option_value_query->row['price_prefix'] == '-') {
+    										$option_price -= $option_value_query->row['price'];
+    									}
+
+    									if($option_query->row['inclusive_discount'] == 0){
+            								if ($option_value_query->row['price_prefix'] == '+') {
+            									$exclusive_discount += $option_value_query->row['price'];
+            								} elseif ($option_value_query->row['price_prefix'] == '-') {
+            									$exclusive_discount -= $option_value_query->row['price'];
+            								}
+            							}
+        							}
 
 									if ($option_value_query->row['points_prefix'] == '+') {
 										$option_points += $option_value_query->row['points'];
@@ -455,11 +492,11 @@ class Cart {
 									if ($option_value_query->row['subtract'] && (!$option_value_query->row['quantity'] || ($option_value_query->row['quantity'] < $cart['quantity']))) {
 										$stock = false;
 									}
-									
+
 									// in order to check whole cart option qty (for e.g. product with same 1st option and diff 2nd option)
 									if ($config_dependent_option) {
 										$opt_key = $product_option_value_id.'-'.$option_value_query->row['name'];
-										
+
 										if($option_value_query->row['subtract']) {
 											if(isset($cart_opts[$opt_key])) {
 												$cart_opts[$opt_key] += $cart['quantity'];
@@ -468,7 +505,7 @@ class Cart {
 												$cart_opts[$opt_key] = $cart['quantity'];
 											}
 										}
-										
+
 										if(isset($cart_opts[$opt_key]) && $cart_opts[$opt_key] > $option_value_query->row['quantity']) {
 											$stock = false;
 										}
@@ -492,7 +529,7 @@ class Cart {
 										'weight'                  => $option_value_query->row['weight'],
 										'weight_prefix'           => $option_value_query->row['weight_prefix']
 									);
-			
+
 								}
 							}
 						} elseif ($option_query->row['type'] == 'text' || $option_query->row['type'] == 'textarea' || $option_query->row['type'] == 'file' || $option_query->row['type'] == 'date' || $option_query->row['type'] == 'datetime' || $option_query->row['type'] == 'time') {
@@ -518,13 +555,13 @@ class Cart {
 				}
 
 				$price = $product_query->row['price'];
-				
-				// << Related Options / Связанные опции 
-					
+
+				// << Related Options / Связанные опции
+
 					if ($ro_for_product && isset($ro_settings['spec_price']) && $ro_settings['spec_price'] && !empty($ro_price_data) ) {
 						$price = $ro_price_data['price'];
 					}
-				
+
 				// >> Related Options / Связанные опции
 
 				// Product Discounts
@@ -545,24 +582,24 @@ class Cart {
 
 				$product_discount_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$cart['product_id'] . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND quantity <= '" . (int)$discount_quantity . "' AND ((date_start = '0000-00-00' OR date_start <= CURDATE()) AND (date_end = '0000-00-00' OR date_end >= CURDATE())) ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");
 
-				// << Related Options / Связанные опции 
+				// << Related Options / Связанные опции
 					// Related Options discounts
 					if ($ro_for_product
 					//if ($ro_for_products && $ro_for_products[$key]
 					&& isset($ro_settings['spec_price']) && $ro_settings['spec_price']
 					&& isset($ro_settings['spec_price_discount']) && $ro_settings['spec_price_discount'] ) {
-					
+
 						// get first option combination with discount
 						foreach ($ro_for_products[$key] as $ro_comb) {
 						//foreach ($ro_for_product as $ro_comb) {
-							
+
 							if ($ro_comb['discounts']) {
 								$ro_discount_quantity = $ro_quantities[$ro_comb['relatedoptions_id']];
 								$product_ro_discount_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "relatedoptions_discount
-								WHERE relatedoptions_id = '" . (int)$ro_comb['relatedoptions_id'] . "'
-								AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "'
-								AND quantity <= '" . (int)$ro_discount_quantity . "'
-								ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");
+																																WHERE relatedoptions_id = '" . (int)$ro_comb['relatedoptions_id'] . "'
+																																AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "'
+																																AND quantity <= '" . (int)$ro_discount_quantity . "'
+																																ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");
 								if ($product_ro_discount_query->num_rows) {
 									$product_discount_query = $product_ro_discount_query;
 									break;
@@ -572,15 +609,16 @@ class Cart {
 					}
 				// >> Related Options / Связанные опции
 
+
 				if ($product_discount_query->num_rows) {
 					if (empty($discount_status)) {
 						$price = $product_discount_query->row['price'];
-						// << Related Options / Связанные опции 
-						
+						// << Related Options / Связанные опции
+
 							if ( !empty($ro_price_data['price_modificator']) ) {
 								$price = $price + $ro_price_data['price_modificator'];
 							}
-						
+
 						// >> Related Options / Связанные опции
 					}
 				}
@@ -595,20 +633,20 @@ class Cart {
 
 				$product_special_query = $this->db->query("SELECT price, date_start, time_start, date_end, time_end FROM " . DB_PREFIX . "product_special WHERE product_id = '" . (int)$cart['product_id'] . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((date_start = '0000-00-00' OR date_start <= CURDATE()) AND (date_end = '0000-00-00' OR date_end >= CURDATE())) ORDER BY priority ASC, price ASC LIMIT 1");
 				$check_time = 1;
-				// << Related Options / Связанные опции 
+				// << Related Options / Связанные опции
 					// related options specials
-					
+
 					if ($ro_for_product
 					//if ($ro_for_products && $ro_for_products[$key]
 					&& isset($ro_settings['spec_price']) && $ro_settings['spec_price']
 					&& isset($ro_settings['spec_price_special']) && $ro_settings['spec_price_special'] ) {
-					
+
 						// get first option combination with special
 						foreach ($ro_for_product as $ro_comb) {
 						//foreach ($ro_for_products[$key] as $ro_comb) {
-						
+
 							if ($ro_comb['specials']) {
-								$product_ro_special_query = $this->db->query("SELECT price FROM ".DB_PREFIX."relatedoptions_special 
+								$product_ro_special_query = $this->db->query("SELECT price FROM ".DB_PREFIX."relatedoptions_special
 																															WHERE relatedoptions_id = '" . (int)$ro_comb['relatedoptions_id'] . "'
 																																AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "'
 																															ORDER BY priority ASC, price ASC LIMIT 1");
@@ -622,28 +660,58 @@ class Cart {
 					}
 				// >> Related Options / Связанные опции
 
+                $total_discount = 0;
 				if ($product_special_query->num_rows) {
 					if (empty($special_status)) {
 						if($check_time == 1){
 							$today = date("d-m-Y");
 							$current = date("d-m-Y h:i A");
 							if(strtotime($product_special_query->row['date_start']." ".$product_special_query->row['time_start']) <= strtotime($current) && strtotime($product_special_query->row['date_end']." ".$product_special_query->row['time_end']) >= strtotime($current)){
-								$price = $product_special_query->row['price'];
+								$total_discount = ($price - $product_special_query->row['price']) / $price;
+        						if($total_discount > 0){
+        						    $option_price = ($option_price - $exclusive_discount) - (($option_price - $exclusive_discount) * $total_discount);
+        						    $option_price += $exclusive_discount;
+                    			    if($new_price > 0){
+                    			        $new_price = $new_price - ($new_price * $total_discount);
+                    			    }
+        						}
+        						if($new_price > 0){
+                    			    $price = $new_price;
+                    			}else{
+								    $price = $product_special_query->row['price'];
+                    			}
 							}
 							if($product_special_query->row['date_start'] == "0000-00-00" && $product_special_query->row['date_end'] = "0000-00-00"){
-								$price = $product_special_query->row['price'];
+								$total_discount = ($price - $product_special_query->row['price']) / $price;
+        						if($total_discount > 0){
+        						    $option_price = ($option_price - $exclusive_discount) - (($option_price - $exclusive_discount) * $total_discount);
+        						    $option_price += $exclusive_discount;
+                    			    if($new_price > 0){
+                    			        $new_price = $new_price - ($new_price * $total_discount);
+                    			    }
+        						}
+        						if($new_price > 0){
+                    			    $price = $new_price;
+                    			}else{
+								    $price = $product_special_query->row['price'];
+                    			}
 							}
 						}else{
 							$price = $product_special_query->row['price'];
-							// << Related Options / Связанные опции 
-				
+							// << Related Options / Связанные опции
+
 							if ( !empty($ro_price_data['price_modificator']) ) {
 								$price = $price + $ro_price_data['price_modificator'];
 							}
 						}
 						// >> Related Options / Связанные опции
 					}
+				}else{
+            		if($price != $new_price){
+            		    $price = $new_price;
+            		}
 				}
+
 
 				// Reward Points
 				$product_reward_query = $this->db->query("SELECT points FROM " . DB_PREFIX . "product_reward WHERE product_id = '" . (int)$cart['product_id'] . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "'");
@@ -790,7 +858,7 @@ class Cart {
 
 		if (!$query->row['total']) {
 			$this->db->query("INSERT " . DB_PREFIX . "cart SET api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "', customer_id = '" . (int)$this->customer->getId() . "', session_id = '" . $this->db->escape($this->session->getId()) . "', product_id = '" . (int)$product_id . "', recurring_id = '" . (int)$recurring_id . "', `option` = '" . $this->db->escape(json_encode($option)) . "', quantity = '" . (int)$quantity . "', date_added = NOW()");
-			
+
 			$this->session->data['new_to_cart'] = $this->db->getLastId();
 		} else {
 			$info = $this->db->query("UPDATE " . DB_PREFIX . "cart SET quantity = (quantity + " . (int)$quantity . ") WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "' AND product_id = '" . (int)$product_id . "' AND recurring_id = '" . (int)$recurring_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
@@ -810,7 +878,7 @@ class Cart {
 	}
 
 	public function updateCart($product_id, $quantity = 1, $option = array(), $recurring_id = 0, $cart_id) {
-		
+
 		/* completecombo */
 		if(!$this->countProducts()) {
 			$this->reinitializeAutoAdd();
@@ -854,7 +922,7 @@ class Cart {
 		    }
 		    /* completecombo*/
 		}
-		
+
 	}
 
 	public function remove($cart_id) {
@@ -879,7 +947,7 @@ class Cart {
 		if($query->num_rows){
 			$image = $query->row['image'];
 		}
-        
+
 		return $image;
 	}
 
@@ -940,7 +1008,7 @@ class Cart {
 			        $product['quantity'] = $product['salecombinationquantity'];
 		      	}
 				/* completecombo */
-		      	
+
 				$tax_rates = $this->tax->getRates($product['price'], $product['tax_class_id']);
 
 				foreach ($tax_rates as $tax_rate) {
@@ -1051,7 +1119,7 @@ class Cart {
 			if($pkey!==false){
 				unset($this->session->data['autoaddedproduct'][$pkey]);
 			}
-		}        
+		}
 	}
 
 	public function canbeAutoAdded($product_id,$checkinsession=1) {
@@ -1108,7 +1176,7 @@ class Cart {
 				$product_id =  $cart['product_id'];
 				$this->getcategories($product_id,$cart['quantity']);
 				if (!isset($this->session->data['slscmdprdts'][$product_id])) {$this->session->data['slscmdprdts'][$product_id] = (int)$cart['quantity'];} else {$this->session->data['slscmdprdts'][$product_id] += (int)$cart['quantity'];}
-			} 
+			}
 		} else {
 			$productsincart = $this->session->data['cart'];
 			foreach ($productsincart as $key => $quantity) {
@@ -1119,7 +1187,7 @@ class Cart {
 				} else {
 					$this->session->data['slscmdprdts'][$product_id] += (int)$quantity;
 				}
-			} 
+			}
 		}
 	}
 
@@ -1257,14 +1325,14 @@ class Cart {
                     		$temp = $quantityapply;
                      		$quantityapply = $quantityapply - $cart['quantity'];
 
-                     		$i = 0; 
+                     		$i = 0;
                      		$this->session->data['cartbindercombooffers_offerapplied'][] = $destination['sales_offer_id'];
                       		$this->session->data['cartbindercombooffers'][$cart['cart_id']] = $destination;
                       		if($quantityapply >= 0) {
                         		$this->session->data['cartbindercombooffers'][$cart['cart_id']]['quantity'] = $cart['quantity'];
                       		} else {
                       			$this->session->data['cartbindercombooffers'][$cart['cart_id']]['quantity'] = $temp;
-                  			} 
+                  			}
 
                   			if($quantityapply <= 0) {
                   				break;
@@ -1344,7 +1412,7 @@ class Cart {
                 $this->session->data['cartbindercombooffers'][$key] =  $destination;if($quantityapply >= 0) {$this->session->data['cartbindercombooffers'][$key]['quantity'] = $quantity;} else {$this->session->data['cartbindercombooffers'][$key]['quantity'] = $temp;}
                 //$this->log->write("offer on product id ".$product_id);$this->log->write(print_r($this->session->data['cartbindercombooffers'],true));
                 if($quantityapply <= 0) {break;}
-              }  
+              }
     }}}if($i){$this->session->data['cartbindercombooffers_pages'][] = $destination['sales_offer_id'];}}}}
     public function salesonecombo1c(){if(isset($this->session->data['slscmdprdts']) && !empty($this->session->data['slscmdprdts'])){
         //$this->log->write("wholesaleconditionexists");$this->log->write(print_r($this->session->data['slscmdprdts'],true));
@@ -1411,7 +1479,7 @@ class Cart {
                       break;
                     }
                   }
-                } 
+                }
               }
               //$this->log->write("bit value".$bit);
               if($bit) {
@@ -1529,7 +1597,7 @@ class Cart {
                       $this->session->data['autoaddedproduct'][] = $secondaryarray[0];
                       $this->add($secondaryarray[0],$quantityapply);
                       break;
-                     } 
+                     }
                    }
                  } else {
                    $this->session->data['cartbindercombooffers_pages'][] = $destination['sales_offer_id'];
@@ -1566,7 +1634,7 @@ class Cart {
                           $primarycrtarray[$cart['cart_id']] = $cart['quantity'];
                         }
                       }
-                    }  
+                    }
                   }
                 }
               } else {
@@ -1582,7 +1650,7 @@ class Cart {
                           $primarycrtarray[] = $key;
                         }
                       }
-                    }  
+                    }
                   }
                 }
               }
@@ -1723,7 +1791,7 @@ class Cart {
                       if($quantityapply >= 0) {$this->session->data['cartbindercombooffers'][$cart['cart_id']]['quantity'] = $cart['quantity'];} else {$this->session->data['cartbindercombooffers'][$cart['cart_id']]['quantity'] = $temp;}
                      //$this->log->write("offer on product id ".$product_id);$this->log->write(print_r($this->session->data['cartbindercombooffers'], true));
                       if($quantityapply <= 0) {break;}
-                    }  
+                    }
                   }
                 }
               }
@@ -1737,7 +1805,7 @@ class Cart {
                 $this->session->data['cartbindercombooffers'][$key] =  $destination;if($quantityapply >= 0) {$this->session->data['cartbindercombooffers'][$key]['quantity'] = $quantity;} else {$this->session->data['cartbindercombooffers'][$key]['quantity'] = $temp;}
                 //$this->log->write("offer on product id ".$product_id);$this->log->write(print_r($this->session->data['cartbindercombooffers'],true));
                 if($quantityapply <= 0) {break;}
-              }  
+              }
     }}}if($i){$this->session->data['cartbindercombooffers_pages'][] = $destination['sales_offer_id'];}}}}
 	/* completecombo */
 
@@ -1745,13 +1813,13 @@ class Cart {
 	public function redeem($cart_id, $redeem_all) {
 		$sql = "SELECT * FROM " . DB_PREFIX . "cart WHERE cart_id = '" . $cart_id . "'";
 		$query = $this->db->query($sql);
-		
+
 		$sql_product = "SELECT * FROM " . DB_PREFIX . "product WHERE product_id = '" . $query->row['product_id'] . "'";
 		$query_product = $this->db->query($sql_product);
 		if($redeem_all == 1){
-			$sql2 = "SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) 
-					. "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) 
-					. "' AND product_id = '" . $query->row['product_id'] . "' AND recurring_id = '" . $query->row['recurring_id'] 
+			$sql2 = "SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0)
+					. "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId())
+					. "' AND product_id = '" . $query->row['product_id'] . "' AND recurring_id = '" . $query->row['recurring_id']
 					. "' AND `option` = '" . $query->row['option'] . "' AND cart_id != '" . $query->row['cart_id'] . "' "
 					. "  AND redeem = '1'";
 			$query2 = $this->db->query($sql2);
@@ -1762,9 +1830,9 @@ class Cart {
 				$this->db->query("UPDATE " . DB_PREFIX . "cart SET redeem = '1', reward_point = '" . $query_product->row['redeem_point'] . "' WHERE cart_id = '" . $cart_id . "'");
 			}
 		}else{
-			$sql2 = "SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) 
-					. "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) 
-					. "' AND product_id = '" . $query->row['product_id'] . "' AND recurring_id = '" . $query->row['recurring_id'] 
+			$sql2 = "SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0)
+					. "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId())
+					. "' AND product_id = '" . $query->row['product_id'] . "' AND recurring_id = '" . $query->row['recurring_id']
 					. "' AND `option` = '" . $query->row['option'] . "' AND cart_id != '" . $query->row['cart_id'] . "' "
 					. " AND redeem = '1'";
 			$query2 = $this->db->query($sql2);
@@ -1782,16 +1850,16 @@ class Cart {
 						. "product_id = '" . $query->row['product_id'] . "', recurring_id = '" . $query->row['recurring_id'] . "', "
 						. "`option` = '" . $query->row['option'] . "', quantity = '1', reward_point = '" . $query_product->row['redeem_point'] . "', redeem = '1', "
 						. "date_added = NOW()");
-			
+
 			}
 		}
-		$sql = "SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) 
-			. "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) 
+		$sql = "SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0)
+			. "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId())
 			. "' AND recurring_id = '" . $query->row['recurring_id'] . "'";
 		$cart_infos = $this->db->query($sql);
 		foreach($cart_infos->rows as $cart){
-			$sql2 = "SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) 
-			. "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) 
+			$sql2 = "SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0)
+			. "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId())
 			. "' AND recurring_id = '" . $query->row['recurring_id'] . "'";
 			$query2 = $this->db->query($sql2);
 			if($query2->num_rows == 0){

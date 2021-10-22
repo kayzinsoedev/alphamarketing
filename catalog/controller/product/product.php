@@ -1024,6 +1024,13 @@ class ControllerProductProduct extends Controller {
 
 		$option_price = 0;
 
+		/*replace option replace product price function */
+		$new_price = $product_info['price'];
+
+		/*replace option replace product price function */
+
+
+
 		if(isset($this->request->post['option']) && $this->request->post['option']) {
 			foreach($this->request->post['option'] as $product_option_id => $value) {
 
@@ -1034,11 +1041,17 @@ class ControllerProductProduct extends Controller {
 						$option_values = $this->model_catalog_product->getUpdateOptionValues($value, $product_option_id);
 
 						if($option_values) {
-							if ($option_values['price_prefix'] == '+') {
-								$option_price += $option_values['price'];
-							} elseif ($option_values['price_prefix'] == '-') {
-								$option_price -= $option_values['price'];
+							if($result['replace_price'] == 1){
+										$new_price = $option_values['price'];
+							}else{
+									if ($option_values['price_prefix'] == '+') {
+										$option_price += $option_values['price'];
+									} elseif ($option_values['price_prefix'] == '-') {
+										$option_price -= $option_values['price'];
+									}
 							}
+
+
 						}
 
 					} elseif ($result['type'] == 'checkbox' && is_array($value)) {
@@ -1084,6 +1097,7 @@ class ControllerProductProduct extends Controller {
 		}
 
 		$price = $product_info['price'];
+		$ori_price = $product_info['price'];
 
 		$new_price_found = 0;
 		// For Discount Amount
@@ -1096,11 +1110,31 @@ class ControllerProductProduct extends Controller {
 			}
 		}
 
+		$ori_price += $option_price;
+		$total_discount = 0;
+
+
 		// check for the special price of product
 		if ($product_info['special']) {
 			$price = $product_info['special'];
+
+			if($new_price > 0){
+				    $price = $new_price;
+			}else{
+			    $price = $product_info['special'];
+			}
+
 			$new_price_found = 1;
+
+		}else{
+    		if($price != $new_price){
+    		    $price = $new_price;
+    		}
 		}
+
+
+
+
 
 		// << Related Options / Связанные опции
 		$r_option_price = 0;
@@ -1153,6 +1187,7 @@ class ControllerProductProduct extends Controller {
 		// >> Related Options / Связанные опции
 
 		$total_price = $price + $option_price;
+		// $total_price = $option_price;
 
 		 if ( !isset($this->request->post['quantity']) ) {
 		 	$this->request->post['quantity'] = 1;
@@ -1176,6 +1211,7 @@ class ControllerProductProduct extends Controller {
         }
 
 		$json['total_price'] = $total;
+		// $json['total_price'] = $result['replace_price'];
 		$json['new_price_found'] = $new_price_found;
 		$json['tax_price'] = $tax_total;
 

@@ -7,13 +7,13 @@ class ControllerCommonCart extends Controller {
 		if (isset($this->session->data['shipping_address']) && isset($this->session->data['shipping_method'])) {
 			$code = $this->session->data['shipping_method']['code'];
 			list($shipping_module, $shipping_option) = explode('.', $code);
-			
+
 			if ($shipping_module == 'complex') {
 				$shipping_module = 'formula_based';
 			}
 
 			// Shipping method disabled
-			if(!$this->config->get($shipping_module . '_status')){	
+			if(!$this->config->get($shipping_module . '_status')){
 				unset($this->session->data['shipping_method']);
 			}
 			else{
@@ -41,7 +41,7 @@ class ControllerCommonCart extends Controller {
 			'taxes'  => &$taxes,
 			'total'  => &$total
 		);
-			
+
 		// Display prices
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 			$sort_order = array();
@@ -115,7 +115,7 @@ class ControllerCommonCart extends Controller {
 					$value = $option['value'];
 				} else {
 					$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
-					
+
 					if ($upload_info) {
 						$value = $upload_info['name'];
 						$href = $this->url->link('tool/upload/download', '&code=' . $upload_info['code'], true);
@@ -137,10 +137,10 @@ class ControllerCommonCart extends Controller {
 			// Display prices
 			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 				$unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
-				
+
 				$price = $this->currency->format($unit_price, $this->session->data['currency']);
 				$total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
-				
+
 				/* completecombo */
 				if(isset($product['salecombinationquantity']) && ($product['salecombinationquantity'] != $product['quantity'])) {
 		        	$total_new = $this->currency->format($unit_price * $product['salecombinationquantity'], $this->session->data['currency']);
@@ -170,7 +170,7 @@ class ControllerCommonCart extends Controller {
 		// Gift Voucher
 		//$data['vouchers'] = array();
 
-		if (!empty($this->session->data['vouchers'])) { 
+		if (!empty($this->session->data['vouchers'])) {
 			foreach ($this->session->data['vouchers'] as $key => $voucher) {
 
 				$vimage = $this->model_tool_image->resize($voucher['image'], $width, $height);
@@ -215,7 +215,7 @@ class ControllerCommonCart extends Controller {
 		$data['checkout'] = $this->url->link('checkout/checkout', '', true);
 		$data['free_shipping_indicator'] = $this->freeShippingIndicator();
 
-		// show cart url instead of toggle cart 
+		// show cart url instead of toggle cart
 		$data['show_cart'] = 0;
 		$data['show_cart_url'] = $this->url->link("checkout/cart", "", true);
 
@@ -245,7 +245,7 @@ class ControllerCommonCart extends Controller {
 
 			$min = $this->config->get('free_total');
 			$cart_item_total = $this->cart->getSubtotal();
-			$balance = $min - $cart_item_total;	
+			$balance = $min - $cart_item_total;
 
 			$data_cart['percentage'] = 0;
 
@@ -253,7 +253,7 @@ class ControllerCommonCart extends Controller {
 				$data_cart['percentage'] = ($cart_item_total / $min) * 100;
 				$data_cart['percentage'] = $data_cart['percentage']>100?100:$data_cart['percentage'];
 			}
-			
+
 			$data_cart['freed']='';
 			if($balance > 0){
 				$data_cart['text'] =  $this->currency->format($balance, $this->session->data['currency']);
@@ -265,9 +265,9 @@ class ControllerCommonCart extends Controller {
 			}
 
 			$data_cart['text_free_label'] = $this->language->get('text_free_label');
-			
+
 			$free_shipping_indicator = $this->load->view('common/header/cart_free_shipping', $data_cart);
-			
+
 		}
 
 		return $free_shipping_indicator;

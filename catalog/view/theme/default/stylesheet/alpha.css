@@ -768,24 +768,25 @@ ul.chin-cate-btn {
 }
 
 .product-block .btn-primary, .add-to-cart-button-wrapper .btn-primary {
-    /* width: 100%; */
     border-radius: 10px;
     border: 1px solid;
     padding: 15px;
     background: url(../../../../../image/catalog/AlphaPoineer/general/arrow.png) left center no-repeat;
-    /* background-size: contain;
-    background-origin: content-box; */
     position: relative;
     background-position: 90%;
     font-family: 'Poppins SemiBold'!important;
     font-size: calc(15px + (20 - 17) * (100vw - 375px) / (1900 - 375));
+    background-size : 25px;
 }
 
 .cart-buttons .btn-cart {
-    padding: calc(20px + (20 - 17) * (100vw - 375px) / (1900 - 375)) calc(35px + (20 - 17) * (100vw - 375px) / (1900 - 375)) !important;
+    padding: calc(20px + (20 - 17) * (100vw - 375px) / (1900 - 375)) !important;
+    width: 100%;
 }
 .cart-words {
-    padding-right: calc(25px + (20 - 17) * (100vw - 375px) / (1900 - 375));
+    font-size: calc(15px + (20 - 17) * (100vw - 375px) / (1900 - 375));
+    font-family: 'Lato Bold';
+    padding-right : calc(20px + (20 - 17) * (100vw - 375px) / (1900 - 375));
 }
 .cart-buttons .btn-primary,
 .cart-buttons .btn-primary:hover
@@ -869,9 +870,9 @@ body.information-information.iid-13 .formbulider.container{
 }
 
 .product-block .product-details {
-    /* align-self: end !important; */
     margin: 0 !important;
-    width: calc(30% - 40px);
+    /* width: calc(30% - 40px); */
+    width: 40%;
     margin: 0 20px;
 }
 
@@ -879,7 +880,8 @@ body.information-information.iid-13 .formbulider.container{
     display: flex;
     justify-content: right;
     margin: 0 !important;
-    width: calc(87% - 40px);
+    /* width: calc(87% - 40px); */
+    width: 60%;
     margin: 0 20px;
 }
 
@@ -922,6 +924,27 @@ body.information-information.iid-13 .formbulider.container{
     width: 100%;
   }
 
+}
+
+@media (max-width: 1500px){
+  .cart-words{
+    font-size: calc(13px + (20 - 17) * (100vw - 375px) / (1900 - 375));
+  }
+}
+
+@media (max-width: 1300px){
+  .product-block .price_button{
+    flex-direction: column;
+  }
+  body .product-block .product-details,
+  .product-block .cart-buttons
+  {
+        width: 100%;
+  }
+
+  .cart-buttons .btn-cart{
+    padding : calc(25px + (20 - 17) * (100vw - 375px) / (1900 - 375)) calc(15px + (20 - 17) * (100vw - 375px) / (1900 - 375)) !important
+  }
 }
 
 @media (max-width: 1280px){
@@ -1138,14 +1161,7 @@ body.information-information.iid-13 .formbulider.container{
 
 @media (max-width: 1400px){
   .cart-buttons .btn-cart {
-      padding: calc(20px + (20 - 17) * (100vw - 375px) / (1900 - 375)) calc(30px + (20 - 17) * (100vw - 375px) / (1900 - 375)) !important;
-  }
-}
-
-
-@media (max-width: 1300px){
-  .cart-buttons .btn-cart{
-    padding: calc(15px + (20 - 17) * (100vw - 375px) / (1900 - 375)) calc(15px + (20 - 17) * (100vw - 375px) / (1900 - 375)) !important
+      /* padding: calc(20px + (20 - 17) * (100vw - 375px) / (1900 - 375)) calc(30px + (20 - 17) * (100vw - 375px) / (1900 - 375)) !important; */
   }
 }
 
@@ -1196,8 +1212,9 @@ body.information-information.iid-13 .formbulider.container{
 
 @media (max-width: 540px){
   .product-block .price_button{
-      min-height: auto;
+    min-height: 120px;
   }
+
   .about-us-nav {
     display: flex !important;
     flex-wrap: wrap;
@@ -1404,6 +1421,12 @@ body.information-information.iid-13 .formbulider.container{
   .product-block .cart-buttons {
     display: block;
     width: 60%;
+  }
+  body .product-block .product-details{
+    width: 40%;
+  }
+  .product-block .cart-buttons {
+      width: 60%;
   }
 
 }

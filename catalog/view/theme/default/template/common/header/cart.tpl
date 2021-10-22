@@ -7,7 +7,7 @@
     </a>
 
     <ul class="dropdown-menu pull-right"  >
-      
+
       <div class="cart-header">
         <div class="cart-header-text"><?= $text_my_cart; ?></div>
         <button type="button" class="pointer cart_close" onclick="$('#cart_dropdown_icon').click(); return false;" ></button>
@@ -32,7 +32,7 @@
               <div class="item-details">
                 <button type="button" onclick="cart.remove('<?= isset($product['cart_id']) ? $product['cart_id'] : $product['key']; ?>');" title="<?= $button_remove; ?>" class="btn btn-danger no-custom pull-right">
                   <i class="fa fa-times"></i>
-                </button> 
+                </button>
 
                 <a class="item-name <?php //if($new_to_cart == $product['cart_id']){echo 'pulse';} ?>" href="<?php echo $product['href']; ?>">
                   <?php echo $product['name']; ?>
@@ -52,7 +52,7 @@
                     <?php } ?>
 
                   <?php } ?>
-                  
+
                   <?php if ($product['recurring']) { ?>
                     <br/><small><?php echo $text_recurring; ?> <?php echo $product['recurring']; ?></small>
                   <?php } ?>
@@ -67,9 +67,9 @@
                     <?php }else{ ?>
                       <div class="input-group" id="header-cart-item-<?= $product['cart_id']; ?>" >
                         <span class="input-group-btn">
-                          <button type="button" data-loading="-" class="btn btn-default btn-number no-custom <?= $product['quantity']==1?'disabled':''; ?>" data-type="minus" 
+                          <button type="button" data-loading="-" class="btn btn-default btn-number no-custom <?= $product['quantity']==1?'disabled':''; ?>" data-type="minus"
                           <?php if($product['quantity'] > 1){ ?>
-                            onclick="descrement($(this).parent().parent()); refreshHeaderCart(this);" 
+                            onclick="descrement($(this).parent().parent()); refreshHeaderCart(this);"
                           <?php } ?>
                           >
                             <span class="glyphicon glyphicon-minus"></span>
@@ -77,7 +77,7 @@
                         </span>
 
                         <input type="text" name="quantity[<?= $product['cart_id']; ?>]" class="form-control input-number integer text-center update-cart no-custom" value="<?= $product['quantity']; ?>" onfocus="rememberHeaderQuantity('<?= $product['quantity']; ?>');" onblur="refreshHeaderCart(this);" >
-                        
+
                         <span class="input-group-btn">
                           <button type="button" data-loading="+" class="btn btn-default btn-number no-custom" data-type="plus" onclick="increment($(this).parent().parent());  refreshHeaderCart(this);">
                             <span class="glyphicon glyphicon-plus"  ></span>
@@ -103,7 +103,7 @@
 
 
             </div>
-            
+
 
           </div>
         <?php } ?>
@@ -138,7 +138,7 @@
     current_focus_header_quantity = parseInt(qty);
   }
   var header_request = null;
-  
+
   function refreshHeaderCart(ele) {
     element = $(ele);
     id = element.parent().parent().attr("id");
@@ -149,7 +149,7 @@
     if($("#" + id + " input").val() == current_focus_header_quantity){
       return;
     }
-    
+
     if(header_request) header_request.abort();
 
     header_request = $.ajax({
@@ -182,7 +182,7 @@
         content = $(html).find("#cartSummary tbody");
         alert = $(html).find(".alert-success");
         alert_error = $(html).find(".alert-danger");
-        
+
         if(alert_error.length){
           error = alert_error.html().split(":");
           if(error.length > 1){
@@ -211,12 +211,12 @@
           }
         }
 
-        if (content.length) {            
+        if (content.length) {
           content = content.html();
           $("#cartSummary tbody").html(content);
           var parent_element = $("#cartTotals").parent(); $("#cartTotals").remove();
           parent_element.html(content_total);
-          
+
           $('#cart-quantity-total').text(content_total_dropdown);
           $('#loadTo').html(content_total_dropdown_body);
 

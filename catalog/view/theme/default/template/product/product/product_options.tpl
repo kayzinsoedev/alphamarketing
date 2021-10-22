@@ -449,6 +449,8 @@
 
           },
           success: function(json) {
+            console.log(json['total_price']);
+            
             $('.alert-success, .alert-danger').remove();
 
             if(json['new_price_found']) {
