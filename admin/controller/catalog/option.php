@@ -175,6 +175,7 @@ class ControllerCatalogOption extends Controller {
 			$data['options'][] = array(
 				'option_id'  => $result['option_id'],
 				'name'       => $result['name'],
+				'admin_name'       => $result['admin_name'],
 				'sort_order' => $result['sort_order'],
 				'edit'       => $this->url->link('catalog/option/edit', 'token=' . $this->session->data['token'] . '&option_id=' . $result['option_id'] . $url, true)
 			);
@@ -255,7 +256,6 @@ class ControllerCatalogOption extends Controller {
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
-
 		$this->response->setOutput($this->load->view('catalog/option_list', $data));
 	}
 
@@ -431,7 +431,7 @@ class ControllerCatalogOption extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 
 
-		// debug($data['option_values']);
+		// debug($data['option_description']);
 
 		$this->response->setOutput($this->load->view('catalog/option_form', $data));
 	}

@@ -6,7 +6,7 @@ class ModelCatalogOption extends Model {
 		$option_id = $this->db->getLastId();
 
 		foreach ($data['option_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "option_description SET option_id = '" . (int)$option_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "option_description SET option_id = '" . (int)$option_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', admin_name = '" . $this->db->escape($value['admin_name']) . "'");
 		}
 
 		if (isset($data['option_value'])) {
@@ -25,13 +25,13 @@ class ModelCatalogOption extends Model {
 	}
 
 	public function editOption($option_id, $data) {
-		// debug($data['replace_price']);die;
+		// debug($data);die;
 		$this->db->query("UPDATE `" . DB_PREFIX . "option` SET type = '" . $this->db->escape($data['type']) . "', sort_order = '" . (int)$data['sort_order'] . "', inclusive_discount = '".(int)$data['inclusive_discount']."', replace_price = '".(int)$data['replace_price']."' WHERE option_id = '" . (int)$option_id . "' ");
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "option_description WHERE option_id = '" . (int)$option_id . "'");
 
 		foreach ($data['option_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "option_description SET option_id = '" . (int)$option_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "option_description SET option_id = '" . (int)$option_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', admin_name = '".$this->db->escape($value['admin_name'])."' ");
 		}
 
 		$this->db->query("DELETE FROM " . DB_PREFIX . "option_value WHERE option_id = '" . (int)$option_id . "'");
@@ -129,7 +129,7 @@ class ModelCatalogOption extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "option_description WHERE option_id = '" . (int)$option_id . "'");
 
 		foreach ($query->rows as $result) {
-			$option_data[$result['language_id']] = array('name' => $result['name']);
+			$option_data[$result['language_id']] = array('name' => $result['name'], 'admin_name' => $result['admin_name']);
 		}
 
 		return $option_data;

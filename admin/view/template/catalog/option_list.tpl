@@ -40,6 +40,11 @@
                     <?php } else { ?>
                     <a href="<?php echo $sort_name; ?>"><?php echo $column_name; ?></a>
                     <?php } ?></td>
+                  <td class="text-left"><?php if ($sort == 'od.name') { ?>
+                    <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>">Option Name (Admin)</a>
+                    <?php } else { ?>
+                    <a href="<?php echo $sort_name; ?>"><?php echo $column_name; ?></a>
+                    <?php } ?></td>
                   <td class="text-right"><?php if ($sort == 'o.sort_order') { ?>
                     <a href="<?php echo $sort_sort_order; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_sort_order; ?></a>
                     <?php } else { ?>
@@ -58,6 +63,7 @@
                     <input type="checkbox" name="selected[]" value="<?php echo $option['option_id']; ?>" />
                     <?php } ?></td>
                   <td class="text-left"><?php echo $option['name']; ?></td>
+                  <td class="text-left"><?php echo $option['admin_name']; ?></td>
                   <td class="text-right"><?php echo $option['sort_order']; ?></td>
                   <td class="text-right"><a href="<?php echo $option['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                 </tr>

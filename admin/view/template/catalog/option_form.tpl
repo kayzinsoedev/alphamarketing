@@ -38,6 +38,26 @@
               <?php } ?>
             </div>
           </div>
+
+
+          <!-- option name for admin only -->
+          <div class="form-group required">
+            <label class="col-sm-2 control-label">Option Name (For admin only)</label>
+            <div class="col-sm-10">
+              <?php foreach ($languages as $language) { ?>
+              <div class="input-group"><span class="input-group-addon"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /></span>
+                <input type="text" name="option_description[<?php echo $language['language_id']; ?>][admin_name]" value="<?php echo isset($option_description[$language['language_id']]) ? $option_description[$language['language_id']]['admin_name'] : ''; ?>" placeholder="<?php echo $entry_name; ?>" class="form-control" />
+              </div>
+              <?php if (isset($error_name[$language['language_id']])) { ?>
+              <div class="text-danger"><?php echo $error_name[$language['language_id']]; ?></div>
+              <?php } ?>
+              <?php } ?>
+            </div>
+          </div>
+          <!-- option name for admin only -->
+
+
+
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-type"><?php echo $entry_type; ?></label>
             <div class="col-sm-10">
