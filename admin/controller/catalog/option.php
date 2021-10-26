@@ -550,6 +550,7 @@ class ControllerCatalogOption extends Controller {
 				$json[] = array(
 					'option_id'    => $option['option_id'],
 					'name'         => strip_tags(html_entity_decode($option['name'], ENT_QUOTES, 'UTF-8')),
+					'admin_name'         => strip_tags(html_entity_decode($option['admin_name'], ENT_QUOTES, 'UTF-8')),
 					'category'     => $type,
 					'type'         => $option['type'],
 					'option_value' => $option_value_data

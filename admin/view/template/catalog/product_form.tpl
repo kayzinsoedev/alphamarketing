@@ -1421,7 +1421,7 @@
 						response($.map(json, function(item) {
 							return {
 								category: item['category'],
-								label: item['name'],
+								label: item['admin_name'],
 								value: item['option_id'],
 								type: item['type'],
 								option_value: item['option_value']
