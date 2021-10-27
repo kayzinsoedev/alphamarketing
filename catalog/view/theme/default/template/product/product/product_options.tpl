@@ -450,15 +450,15 @@
           },
           success: function(json) {
             console.log(json['total_price']);
-            
+
             $('.alert-success, .alert-danger').remove();
 
             if(json['new_price_found']) {
               $('.new-prices').html(json['total_price']);
-              $('.product-tax').html(json['tax_price']);
+              $('.product-tax').html("Ex Tax:"+ json['tax_price']);
             } else {
               $('.old-prices').html(json['total_price']);
-              $('.product-tax').html(json['tax_price']);
+              $('.product-tax').html("Ex Tax:"+ json['tax_price']);
             }
           }
         });

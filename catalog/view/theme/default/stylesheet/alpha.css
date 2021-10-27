@@ -246,7 +246,16 @@ input#input-quantity {
 }
 
 .product-tax-price.product-tax{
-  display: none;
+    color: #adadad !important;
+    font-family: 'Lato Bold';
+    font-size: calc(20px + (27 - 20) * (100vw - 320px) / (1920 - 320)) !important;
+    margin-left: 30px;
+}
+
+
+.list-unstyled.price-wrapper {
+    display: flex;
+    flex-direction: row;
 }
 
 /*changes */
