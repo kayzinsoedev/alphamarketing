@@ -245,6 +245,10 @@ input#input-quantity {
   color: #878787 !important;
 }
 
+.product-tax-price.product-tax{
+  display: none;
+}
+
 /*changes */
 
 .currency-txt{
