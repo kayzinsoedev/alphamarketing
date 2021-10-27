@@ -251,6 +251,10 @@ input#input-quantity {
 
 /*changes */
 
+span.price-tax {
+    margin-left: 10px;
+}
+
 .currency-txt{
   color: #01693e;
 }
