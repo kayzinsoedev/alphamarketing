@@ -902,8 +902,7 @@ body.information-information.iid-13 .formbulider.container{
 .product-block .cart-buttons {
     display: flex;
     justify-content: right;
-    margin: 0 !important;
-    /* width: calc(87% - 40px); */
+    margin-top: calc(10px + (20 - 17) * (100vw - 375px) / (1900 - 375)) !important;
     width: 60%;
     margin: 0 20px;
 }
