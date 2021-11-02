@@ -260,6 +260,11 @@ input#input-quantity {
 
 /*changes */
 
+.price,
+.price-wrapper {
+    display: none !important;
+}
+
 span.price-tax {
     margin-left: 10px;
 }
